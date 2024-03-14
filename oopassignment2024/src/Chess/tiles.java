@@ -26,7 +26,7 @@ class Tile {
 		else if (!is_wheat) {
 			tile_button.setBackground(brown);
 		}
-		
+		tile_button.addActionListener(evt);
 		pane.add(tile_button);
 		
 		

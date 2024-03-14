@@ -30,7 +30,7 @@ class Buttontile implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// initialize JFrame
+		
 		if (is_yellow == true & last_color == false)
 		{
 			last_button.setIcon(null);
