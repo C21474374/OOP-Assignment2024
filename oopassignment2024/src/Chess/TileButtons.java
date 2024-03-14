@@ -14,7 +14,7 @@ import javax.swing.JButton;
 
 
 
-class Buttonevt implements ActionListener{
+class Buttontile implements ActionListener{
 	private JButton current_btn;
 	public static JButton last_button = null;
 	Color wheat = new Color(245,222,179);
@@ -24,7 +24,7 @@ class Buttonevt implements ActionListener{
 	private boolean is_wheat;
 	static boolean is_yellow = false;
 	// Button event method
-	public Buttonevt(JButton button,boolean is_wheat) {
+	public Buttontile(JButton button,boolean is_wheat) {
 		this.current_btn = button;
 		this.is_wheat = is_wheat;
 	}
