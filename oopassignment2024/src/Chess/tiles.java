@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -12,16 +13,28 @@ import javax.swing.plaf.metal.MetalButtonUI;
 
 class Tile {
 	private Color tile_color;
+	public static JButton last_button;
+	public static boolean last_color;
+	public static boolean is_yellow = false;
 	int top;
 	int left;
+	String piece_type;
 	JButton tile_button;
 	boolean tile_selected = false;
-	private boolean has_piece = false;
+	boolean has_piece = false;
 	boolean is_wheat;
 	Piece current_piece;
+	public static Piece selected_piece;
+	boolean is_moveable;
+	boolean is_selected = false;
 	Color  brown   = new Color(139,69,19); 
 	Color wheat = new Color(245,222,179);
 	Color yellow = new Color(255,255,0);
+	String piecetypes[] = {"Queen","King","Pawn","Rook","Bishop","Knight"};
+	
+	
+	
+	
 	
 	// CONSTRUCTOR
 	public Tile(boolean is_wheat,Container pane,int top,int left) {
@@ -29,9 +42,9 @@ class Tile {
 		tile_button = new JButton();
 		this.top = top;
 		this.left = left;
+		this.is_wheat = is_wheat;
 		
-		
-		Buttontile evt = new Buttontile(tile_button,is_wheat);
+		Buttontile evt = new Buttontile(this,is_wheat,selected_piece);
 		if (is_wheat) {
 			tile_button.setBackground(wheat);
 		}
@@ -55,6 +68,10 @@ class Tile {
 
 	// GETTERS AND SETTERS
 	
+	public void addPiece(Piece piece) {
+		current_piece = piece;
+		has_piece = true;
+	}
 	public Color getTile_color() {
 		return tile_color;
 	}
@@ -72,7 +89,13 @@ class Tile {
 		this.tile_color = tile_color;
 	}
 
+	public JButton getButton() {
+		return tile_button;
+	}
 	
+	public void setPiece () {
+		
+	}
 
 
 
@@ -84,12 +107,56 @@ class Tile {
 		this.tile_selected = tile_selected;
 	}
 	
-	public void placePiece(ImageIcon piece) {
+	public void selectTile() {
+		Color wheat = new Color(245,222,179);
+		Color yellow = new Color(255,255,0);
+		Color  brown   = new Color(139,69,19); 
+		is_selected = true;
+		selected_piece = current_piece;
+		if (has_piece) {
+			if (is_yellow == true && last_color == false)
+			{
+				
+				last_button.setBackground(brown);
+			}
+			else if (is_yellow == true && last_color == true)
+			{
+				
+				last_button.setBackground(wheat);
+			}
+			tile_button.setBackground(yellow);
+			
+			last_color = is_wheat;
+			
+			last_button = tile_button;
+			is_yellow = true;
+			if (current_piece.getPiece_type() == "Pawn") {
+				maingame.position[left-1][top].moveableTile();
+			//current_piece.movePiece(maingame.position[left-1][top]);
+				}
+		}
 		
+		
+	}
+	
+	public void moveableTile () {
+		is_moveable = true;
+		if (!has_piece) {
+			tile_button.setBackground(yellow);
+		}
+		else if (has_piece) {
+			System.out.println("red");
+			tile_button.setBackground(yellow);
+		}
+	}
+	
+	public void placePiece(ImageIcon piece,String piece_Type) {
+		piece_type = piece_Type;
 		Image image = piece.getImage();
         Image scaledImage = image.getScaledInstance(40,40, Image.SCALE_SMOOTH);
         tile_button.setIcon(new ImageIcon(scaledImage));
-        System.out.println("Queen has been placed in:("+left+","+top+")");
+        System.out.println(piece_type+" has been placed in:("+left+","+top+")");
+        has_piece = true;
 	}
 	
 	

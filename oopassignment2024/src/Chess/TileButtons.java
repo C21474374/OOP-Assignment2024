@@ -15,51 +15,44 @@ import javax.swing.JButton;
 
 
 class Buttontile implements ActionListener{
-	private JButton current_btn;
+	private Tile current_tile;
+	private Piece selected_piece;
+	//static Tile selected_tile;
 	public static JButton last_button = null;
 	Color wheat = new Color(245,222,179);
 	Color yellow = new Color(255,255,0);
 	Color  brown   = new Color(139,69,19); 
 	private static boolean last_color;
 	private boolean is_wheat;
+	
 	static boolean is_yellow = false;
 	// Button event method
-	public Buttontile(JButton button,boolean is_wheat) {
-		this.current_btn = button;
+	public Buttontile(Tile tile,boolean is_wheat,Piece selected_piece) {
+		current_tile = tile;
+		this.selected_piece = selected_piece;
+		
 		this.is_wheat = is_wheat;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (is_yellow == true & last_color == false)
-		{
-			last_button.setIcon(null);
-			last_button.setBackground(brown);
-		}
-		else if (is_yellow == true & last_color == true)
-		{
-			last_button.setIcon(null);
-			last_button.setBackground(wheat);
-		}
-		current_btn.setBackground(yellow);
-		
-		last_color = is_wheat;
-		
-		last_button = current_btn;
-		is_yellow = true;
-		
-		
-		
-		// Alert box that displays message variable
-		
-		
-	}
+			
+			//selected_tile = current_tile;
+			if (!current_tile.is_selected) {
+				current_tile.selectTile();
+			}
+			
+			else if (current_tile.is_moveable) {
+				current_tile.selected_piece.movePiece(current_tile);
+			}
+			
+			
+	
 	
 	
 
 }
 
-
+}
 
 
 public class TileButtons {

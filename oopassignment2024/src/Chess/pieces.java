@@ -1,6 +1,7 @@
 package Chess;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 
 interface PieceControl
@@ -24,13 +25,74 @@ class Piece {
 	ImageIcon rook_white = new ImageIcon("Chesspieces/rook_white.png");
 	ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
 	
-	
+	static boolean has_moved = false;
 	private boolean is_white;
 	int available_move[];
 	boolean alive = true;
+	Tile current_tile;
+	private String piece_type;
 	
-	Piece(boolean is_white){
+	public Piece(boolean is_white,Tile current_tile,String piece_type){
 		this.is_white = is_white;
+		this.piece_type = piece_type;
+		this.current_tile = current_tile;
+		JButton new_button = current_tile.getButton();
+		if(piece_type == "Knight") {
+			if (is_white) {
+				current_tile.placePiece(knight_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(knight_black,piece_type);
+			}
+		}
+		else if (piece_type == "Queen") {
+			if (is_white) {
+				current_tile.placePiece(queen_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(queen_black,piece_type);
+			}
+		}
+		else if (piece_type == "King") {
+			if (is_white) {
+				current_tile.placePiece(king_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(king_black,piece_type);
+			}
+		}
+		else if (piece_type == "Bishop") {
+			if (is_white) {
+				current_tile.placePiece(bishop_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(bishop_black,piece_type);
+			}
+		}
+		else if (piece_type == "Rook") {
+			if (is_white) {
+				current_tile.placePiece(rook_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(rook_black,piece_type);
+			}
+		}
+		else if (piece_type == "Pawn") {
+			if (is_white) {
+				current_tile.placePiece(pawn_white,piece_type);
+			}
+			else if(!is_white) {
+				current_tile.placePiece(pawn_black,piece_type);
+			}
+		}
+	}
+
+	public String getPiece_type() {
+		return piece_type;
+	}
+
+	public void setPiece_type(String piece_type) {
+		this.piece_type = piece_type;
 	}
 
 	public boolean isIs_white() {
@@ -43,116 +105,73 @@ class Piece {
 		this.is_white = is_white;
 	}
 	
+	public void movePiece(Tile new_tile) {
+		JButton current_button = current_tile.getButton();
+		JButton new_button = new_tile.getButton();
+		
+			System.out.println("hello world!");
+			if(piece_type == "Knight") {
+				if (is_white) {
+					new_tile.placePiece(knight_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(knight_black,piece_type);
+				}
+			}
+			else if (piece_type == "Queen") {
+				if (is_white) {
+					new_tile.placePiece(queen_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(queen_black,piece_type);
+				}
+			}
+			else if (piece_type == "King") {
+				if (is_white) {
+					new_tile.placePiece(king_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(king_black,piece_type);
+				}
+			}
+			else if (piece_type == "Bishop") {
+				if (is_white) {
+					new_tile.placePiece(bishop_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(bishop_black,piece_type);
+				}
+			}
+			else if (piece_type == "Rook") {
+				if (is_white) {
+					new_tile.placePiece(rook_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(rook_black,piece_type);
+				}
+			}
+			else if (piece_type == "Pawn") {
+				if (is_white) {
+					System.out.println("pawn moved");
+					new_tile.placePiece(pawn_white,piece_type);
+				}
+				else if(!is_white) {
+					new_tile.placePiece(pawn_black,piece_type);
+				}
+			}
+			
+			current_button.setIcon(null);
+			current_tile.piece_type = null;
+			
+	}
 	
 	
 }
 
-class Queen extends Piece implements PieceControl{
-	
-	public Queen(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(queen_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(queen_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
-class King extends Piece implements PieceControl{
-	
-	public King(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(king_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(king_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
 
-class Bishop extends Piece implements PieceControl{
+			
 	
-	public Bishop(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(bishop_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(bishop_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
 
-class Knight extends Piece implements PieceControl{
-	
-	public Knight(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(knight_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(knight_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
-
-class Rook extends Piece implements PieceControl{
-	
-	public Rook(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(rook_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(rook_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
-
-class Pawn extends Piece implements PieceControl{
-	
-	public Pawn(boolean is_white,Tile tile) {
-		super(is_white);
-		if (super.isIs_white()) {
-			tile.placePiece(pawn_white);
-		}
-		else if(!super.isIs_white()) {
-			tile.placePiece(pawn_black);
-		}
-		
-	}
-	public void movePiece(Tile current_tile, Tile new_tile) {
-		
-	}
-	
-}
 
 
 

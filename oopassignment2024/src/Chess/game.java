@@ -2,6 +2,7 @@ package Chess;
 
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,8 +16,9 @@ class maingame {
 	
 	int top[] = new int[8];
 	int left[] = new int[8];
-	Tile[][] position = new Tile[8][8];
+	static Tile[][] position = new Tile[8][8];
 	boolean is_wheat = true;
+	
 	
 	ImageIcon queen_white = new ImageIcon("ChessPieces/queen_white.png");
 	
@@ -60,55 +62,127 @@ class maingame {
 				//BLACK PIECES
 				if ((i == 0 && j == 0) || (i == 0 && j == 7))
 				{
-					Rook rook_black = new Rook(false,position[i][j]);
+					Piece rook_black = new Piece(false,position[i][j],"Rook");
+					position[i][j].addPiece(rook_black);
 				}
 				else if ((i == 0 && j == 1) || (i == 0 && j == 6))
 				{
-					Knight knight_black = new Knight(false,position[i][j]);
+					Piece knight_black = new Piece(false,position[i][j],"Knight");
+					position[i][j].addPiece(knight_black);
 				}
 				else if ((i == 0 && j == 2) || (i == 0 && j == 5))
 				{
-					Bishop bishop_black = new Bishop(false,position[i][j]);
+					Piece bishop_black = new Piece(false,position[i][j],"Bishop");
+					position[i][j].addPiece(bishop_black);
 				}
 				else if (i == 0 && j == 3)
 				{
-					Queen Queen_black = new Queen(false,position[i][j]);
+					Piece queen_black = new Piece(false,position[i][j],"Queen");	
+					position[i][j].addPiece(queen_black);
 				}
 				else if (i == 0 && j == 4)
 				{
-					King king_black = new King(false,position[i][j]);
+					Piece king_black = new Piece(false,position[i][j],"King"); 
+					position[i][j].addPiece(king_black);
 				}
-				else if (i == 1) {
-					Pawn pawn_black = new Pawn(false,position[i][j]);
+				else if (i == 1 && j == 0) {
+					Piece pawn_black1 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black1);
+				}
+				else if (i == 1 && j == 1) {
+					Piece pawn_black2 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black2);
+				}
+				else if (i == 1 && j == 2) {
+					Piece pawn_black3 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black3);
+				}
+				else if (i == 1 && j == 3) {
+					Piece pawn_black4 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black4);
+				}
+				else if (i == 1 && j == 4) {
+					Piece pawn_black5 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black5);
+				}
+				else if (i == 1 && j == 5) {
+					Piece pawn_black6 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black6);
+				}
+				else if (i == 1 && j == 6) {
+					Piece pawn_black7 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black7);
+				}
+				else if (i == 1 && j == 7) {
+					Piece pawn_black8 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_black8);
 				}
 				
 				
 				//WHITE PIECES
 				if ((i == 7 && j == 0) || (i == 7 && j == 7))
 				{
-					Rook rook_white = new Rook(true,position[i][j]);
+					Piece rook_white = new Piece(true,position[i][j],"Rook");
+					position[i][j].addPiece(rook_white);
 				}
 				else if ((i == 7 && j == 1) || (i == 7 && j == 6))
 				{
-					Knight knight_white = new Knight(true,position[i][j]);
+					Piece knight_white = new Piece(true,position[i][j],"Knight");
+					position[i][j].addPiece(knight_white);
 				}
 				else if ((i == 7 && j == 2) || (i == 7 && j == 5))
 				{
-					Bishop bishop_white = new Bishop(true,position[i][j]);
+					Piece bishop_white = new Piece(true,position[i][j],"Bishop");
+					position[i][j].addPiece(bishop_white);
 				}
 				else if (i == 7 && j == 3)
 				{
-					Queen Queen_white = new Queen(true,position[i][j]);
+					Piece queen_white = new Piece(true,position[i][j],"Queen");
+					position[i][j].addPiece(queen_white);
 				}
 				else if (i == 7 && j == 4)
 				{
-					King king_white = new King(true,position[i][j]);
+					Piece king_white = new Piece(true,position[i][j],"King");
+					position[i][j].addPiece(king_white);
 				}
-				else if (i == 6) {
-					Pawn pawn_white = new Pawn(true,position[i][j]);
+				else if (i == 6 && j == 0) {
+					Piece pawn_white1 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white1);
+				}
+				else if (i == 6 && j == 1) {
+					Piece pawn_white2 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white2);
+				}
+				else if (i == 6 && j == 2) {
+					Piece pawn_white3 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white3);
+				}
+				else if (i == 6 && j == 3) {
+					Piece pawn_white4 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white4);
+				}
+				else if (i == 6 && j == 4) {
+					Piece pawn_white5 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white5);
+				}
+				else if (i == 6 && j == 5) {
+					Piece pawn_white6 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white6);
+				}
+				else if (i == 6 && j == 6) {
+					Piece pawn_white7 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white7);
+				}
+				else if (i == 6 && j == 7) {
+					Piece pawn_white8 = new Piece(false,position[i][j],"Pawn");
+					position[i][j].addPiece(pawn_white8);
 				}
 			}
 			is_wheat = !is_wheat;
+			
+		}//end double for
+		
+		for (int n = 0;n<33;n++) {
 			
 		}
 		gui.setVisible(true);
