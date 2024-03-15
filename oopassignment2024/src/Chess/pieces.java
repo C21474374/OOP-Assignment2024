@@ -177,47 +177,96 @@ class Piece {
 				}
 			}
 			current_tile = new_tile;
+			new_tile.has_piece = true;
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
 			
 	}
 	
 	public void selectPawn(int left,int top) {
-		try {
-			if(!maingame.position[left-1][top].has_piece) {
-				maingame.position[left-1][top].moveableTile();
+		if (is_white) {
+			try {
+				if(!maingame.position[left-1][top].has_piece) {
+					maingame.position[left-1][top].moveableTile();
+					if((!maingame.position[left-2][top].has_piece) && (!this.isPawn_moved())) {
+						maingame.position[left-2][top].moveableTile();
+					}
+				}
 			}
-		}
+				catch(Exception e) {
+					
+				}
+			
+			try {
+				if (!maingame.position[left-1][top-1].current_piece.is_white) {
+					maingame.position[left-1][top-1].killTile();
+				}
+				
+			}
 			catch(Exception e) {
 				
 			}
-		try {
-			
-			if((!maingame.position[left-2][top].has_piece) && (!this.isPawn_moved())) {
-				maingame.position[left-2][top].moveableTile();
+			try {
+				if (!maingame.position[left-1][top+1].current_piece.is_white) {
+					maingame.position[left-1][top+1].killTile();
+				}
+				
 			}
-		}catch(Exception e) {
+			catch(Exception e) {
+				
+			}
+		}
+		else if(!is_white) {
+			try {
+				if(!maingame.position[left+1][top].has_piece) {
+					maingame.position[left+1][top].moveableTile();
+					if((!maingame.position[left+2][top].has_piece) && (!this.isPawn_moved())) {
+						maingame.position[left+2][top].moveableTile();
+					}
+				}
+			}
+				catch(Exception e) {
+					
+				}
 			
-		}
-		try {
-			maingame.position[left-1][top-1].killTile();
-		}
-		catch(Exception e) {
 			
-		}
-		try {
-			maingame.position[left-1][top+1].killTile();
-		}
-		catch(Exception e) {
+			try {
+				if(maingame.position[left+1][top-1].current_piece.is_white) {
+					maingame.position[left+1][top-1].killTile();
+				}
+			
+			}
+			catch(Exception e) {
+				
+			}
+			try {
+				if (maingame.position[left+1][top+1].current_piece.is_white) {
+					maingame.position[left+1][top+1].killTile();
+				}
+			
+			}
+			catch(Exception e) {
+				
+			}
+			
 			
 		}
 		
-			
+		
+
+		
 			
 		}
-		
+	public static void checkPath() {
+		for (int i = 0;i<Buttontile.moveable_tiles.length;i++) {
+			if(Buttontile.moveable_tiles[i].has_piece) {
+				Buttontile.moveable_tiles[i].deselectTile();
+			}
+		System.out.println("path checked");
+	}
 		
 	}
+}
 	
 	
 
