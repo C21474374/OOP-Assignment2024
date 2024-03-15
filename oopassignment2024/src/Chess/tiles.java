@@ -119,12 +119,16 @@ class Tile {
 	}
 	
 	public void selectTile() {
+		Buttontile.clearTiles();
+		is_selected = false;
 		Color wheat = new Color(245,222,179);
 		Color yellow = new Color(255,255,0);
 		Color  brown   = new Color(139,69,19); 
 	
 		selected_piece = current_piece;
+		
 		if (has_piece) {
+			Buttontile.selected_tile = this;
 			is_selected = true;
 			is_moveable = false;
 			if (is_yellow == true && last_color == false)
@@ -144,44 +148,16 @@ class Tile {
 			last_button = tile_button;
 			is_yellow = true;
 			if (current_piece.getPiece_type() == "Pawn") {
-				try {
-					if(!maingame.position[left-1][top].has_piece) {
-						maingame.position[left-1][top].moveableTile();
-					}
-				}
-					catch(Exception e) {
-						
-					}
-				try {
-					
-					if((!maingame.position[left-2][top].has_piece) && (!current_piece.isPawn_moved())) {
-						maingame.position[left-2][top].moveableTile();
-					}
-				}catch(Exception e) {
-					
-				}
-				try {
-					maingame.position[left-1][top-1].killTile();
-				}
-				catch(Exception e) {
-					
-				}
-				try {
-					maingame.position[left-1][top+1].killTile();
-				}
-				catch(Exception e) {
-					
-				}
-				
-					
-					
-				}
-				
+				current_piece.selectPawn(left, top);
 				
 				
 			//current_piece.movePiece(maingame.position[left-1][top]);
 				}
 		}
+		else if (!has_piece) {
+			this.clearTiles();
+		}
+	}
 		
 		
 	
@@ -194,6 +170,7 @@ class Tile {
 		}
 		is_selected = false;
 		is_moveable = false;
+		is_killable = false;
 		
 	}
 	public void killTile() {
@@ -244,8 +221,10 @@ class Tile {
 		}
 	}
 	
-	 private void clearMoveableTiles() {
+	 private void clearTiles() {
+		 
 		 Buttontile.moveable_tiles = null;
+		 Buttontile.killable_tiles = null;
 	    }
 	public void placePiece(ImageIcon piece,String piece_Type) {
 		piece_type = piece_Type;

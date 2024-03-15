@@ -121,7 +121,7 @@ class Piece {
 		JButton new_button = new_tile.getButton();
 			current_tile.deselectTile();
 			current_tile.has_piece = false;
-			
+			new_tile.has_piece = true;
 			new_tile.deselectTile();
 			new_tile.current_piece = this;
 			System.out.println("hello world!");
@@ -182,8 +182,45 @@ class Piece {
 			
 	}
 	
+	public void selectPawn(int left,int top) {
+		try {
+			if(!maingame.position[left-1][top].has_piece) {
+				maingame.position[left-1][top].moveableTile();
+			}
+		}
+			catch(Exception e) {
+				
+			}
+		try {
+			
+			if((!maingame.position[left-2][top].has_piece) && (!this.isPawn_moved())) {
+				maingame.position[left-2][top].moveableTile();
+			}
+		}catch(Exception e) {
+			
+		}
+		try {
+			maingame.position[left-1][top-1].killTile();
+		}
+		catch(Exception e) {
+			
+		}
+		try {
+			maingame.position[left-1][top+1].killTile();
+		}
+		catch(Exception e) {
+			
+		}
+		
+			
+			
+		}
+		
+		
+	}
 	
-}
+	
+
 
 
 			

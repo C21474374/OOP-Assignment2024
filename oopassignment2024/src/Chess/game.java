@@ -146,35 +146,35 @@ class maingame {
 					position[i][j].addPiece(king_white);
 				}
 				else if (i == 6 && j == 0) {
-					Piece pawn_white1 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white1 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white1);
 				}
 				else if (i == 6 && j == 1) {
-					Piece pawn_white2 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white2 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white2);
 				}
 				else if (i == 6 && j == 2) {
-					Piece pawn_white3 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white3 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white3);
 				}
 				else if (i == 6 && j == 3) {
-					Piece pawn_white4 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white4 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white4);
 				}
 				else if (i == 6 && j == 4) {
-					Piece pawn_white5 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white5 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white5);
 				}
 				else if (i == 6 && j == 5) {
-					Piece pawn_white6 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white6 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white6);
 				}
 				else if (i == 6 && j == 6) {
-					Piece pawn_white7 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white7 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white7);
 				}
 				else if (i == 6 && j == 7) {
-					Piece pawn_white8 = new Piece(false,position[i][j],"Pawn");
+					Piece pawn_white8 = new Piece(true,position[i][j],"Pawn");
 					position[i][j].addPiece(pawn_white8);
 				}
 			}
