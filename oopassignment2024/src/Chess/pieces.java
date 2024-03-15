@@ -26,6 +26,7 @@ class Piece {
 	ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
 	
 	static boolean has_moved = false;
+	private boolean pawn_moved = false;
 	private boolean is_white;
 	int available_move[];
 	boolean alive = true;
@@ -79,12 +80,22 @@ class Piece {
 		}
 		else if (piece_type == "Pawn") {
 			if (is_white) {
+				
 				current_tile.placePiece(pawn_white,piece_type);
 			}
 			else if(!is_white) {
+				
 				current_tile.placePiece(pawn_black,piece_type);
 			}
 		}
+	}
+
+	public boolean isPawn_moved() {
+		return pawn_moved;
+	}
+
+	public void setPawn_moved(boolean pawn_moved) {
+		this.pawn_moved = pawn_moved;
 	}
 
 	public String getPiece_type() {
@@ -108,7 +119,11 @@ class Piece {
 	public void movePiece(Tile new_tile) {
 		JButton current_button = current_tile.getButton();
 		JButton new_button = new_tile.getButton();
-		
+			current_tile.deselectTile();
+			current_tile.has_piece = false;
+			
+			new_tile.deselectTile();
+			new_tile.current_piece = this;
 			System.out.println("hello world!");
 			if(piece_type == "Knight") {
 				if (is_white) {
@@ -152,14 +167,16 @@ class Piece {
 			}
 			else if (piece_type == "Pawn") {
 				if (is_white) {
+					pawn_moved = true;
 					System.out.println("pawn moved");
 					new_tile.placePiece(pawn_white,piece_type);
 				}
 				else if(!is_white) {
+					pawn_moved = true;
 					new_tile.placePiece(pawn_black,piece_type);
 				}
 			}
-			
+			current_tile = new_tile;
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
 			

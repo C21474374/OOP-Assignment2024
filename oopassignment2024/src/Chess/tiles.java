@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -25,13 +24,17 @@ class Tile {
 	boolean is_wheat;
 	Piece current_piece;
 	public static Piece selected_piece;
-	boolean is_moveable;
-	boolean is_selected = false;
+	boolean is_moveable = false;
+	private boolean is_selected = false;
+	boolean is_killable = false;
 	Color  brown   = new Color(139,69,19); 
 	Color wheat = new Color(245,222,179);
 	Color yellow = new Color(255,255,0);
+	Color red = new Color(255,0,0);
 	String piecetypes[] = {"Queen","King","Pawn","Rook","Bishop","Knight"};
-	
+	static int number;
+	public static boolean has_moved;
+
 	
 	
 	
@@ -44,7 +47,7 @@ class Tile {
 		this.left = left;
 		this.is_wheat = is_wheat;
 		
-		Buttontile evt = new Buttontile(this,is_wheat,selected_piece);
+		Buttontile evt = new Buttontile(this,is_wheat);
 		if (is_wheat) {
 			tile_button.setBackground(wheat);
 		}
@@ -72,6 +75,14 @@ class Tile {
 		current_piece = piece;
 		has_piece = true;
 	}
+	public boolean isIs_selected() {
+		return is_selected;
+	}
+
+	public void setIs_selected(boolean is_selected) {
+		this.is_selected = is_selected;
+	}
+
 	public Color getTile_color() {
 		return tile_color;
 	}
@@ -111,9 +122,11 @@ class Tile {
 		Color wheat = new Color(245,222,179);
 		Color yellow = new Color(255,255,0);
 		Color  brown   = new Color(139,69,19); 
-		is_selected = true;
+	
 		selected_piece = current_piece;
 		if (has_piece) {
+			is_selected = true;
+			is_moveable = false;
 			if (is_yellow == true && last_color == false)
 			{
 				
@@ -131,25 +144,109 @@ class Tile {
 			last_button = tile_button;
 			is_yellow = true;
 			if (current_piece.getPiece_type() == "Pawn") {
-				maingame.position[left-1][top].moveableTile();
+				try {
+					if(!maingame.position[left-1][top].has_piece) {
+						maingame.position[left-1][top].moveableTile();
+					}
+				}
+					catch(Exception e) {
+						
+					}
+				try {
+					
+					if((!maingame.position[left-2][top].has_piece) && (!current_piece.isPawn_moved())) {
+						maingame.position[left-2][top].moveableTile();
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					maingame.position[left-1][top-1].killTile();
+				}
+				catch(Exception e) {
+					
+				}
+				try {
+					maingame.position[left-1][top+1].killTile();
+				}
+				catch(Exception e) {
+					
+				}
+				
+					
+					
+				}
+				
+				
+				
 			//current_piece.movePiece(maingame.position[left-1][top]);
 				}
 		}
 		
 		
-	}
 	
+	public void deselectTile() {
+		if (is_wheat) {
+			tile_button.setBackground(wheat);
+		}
+		else if (!is_wheat) {
+			tile_button.setBackground(brown);
+		}
+		is_selected = false;
+		is_moveable = false;
+		
+	}
+	public void killTile() {
+		is_moveable = false;
+		is_selected = true;
+		is_killable = true;
+		if (this.has_piece) {
+			tile_button.setBackground(red);
+		}
+		if (Buttontile.killable_tiles == null) {
+			Buttontile.killable_tiles = new Tile[1];
+			Buttontile.killable_tiles[0] = this;
+        } else {
+            // Create a new array with increased size to accommodate the new tile
+            Tile[] newkillable_tiles = new Tile[Buttontile.killable_tiles.length + 1];
+            // Copy existing tiles to the new array
+            System.arraycopy(Buttontile.killable_tiles, 0, newkillable_tiles, 0, Buttontile.killable_tiles.length);
+            // Add the new tile to the end of the new array
+            newkillable_tiles[newkillable_tiles.length - 1] = this;
+            // Update the moveable_tiles reference to point to the new array
+            Buttontile.killable_tiles = newkillable_tiles;
+        }
+	}
 	public void moveableTile () {
 		is_moveable = true;
+		is_selected = true;
+		
+		if (Buttontile.moveable_tiles == null) {
+			Buttontile.moveable_tiles = new Tile[1];
+			Buttontile.moveable_tiles[0] = this;
+        } else {
+            // Create a new array with increased size to accommodate the new tile
+            Tile[] newMoveableTiles = new Tile[Buttontile.moveable_tiles.length + 1];
+            // Copy existing tiles to the new array
+            System.arraycopy(Buttontile.moveable_tiles, 0, newMoveableTiles, 0, Buttontile.moveable_tiles.length);
+            // Add the new tile to the end of the new array
+            newMoveableTiles[newMoveableTiles.length - 1] = this;
+            // Update the moveable_tiles reference to point to the new array
+            Buttontile.moveable_tiles = newMoveableTiles;
+        }
+		System.out.println("Position "+left+","+top+" is moveable");
 		if (!has_piece) {
 			tile_button.setBackground(yellow);
 		}
 		else if (has_piece) {
 			System.out.println("red");
-			tile_button.setBackground(yellow);
+			this.killTile();
 		}
 	}
 	
+	 private void clearMoveableTiles() {
+		 Buttontile.moveable_tiles = null;
+	    }
 	public void placePiece(ImageIcon piece,String piece_Type) {
 		piece_type = piece_Type;
 		Image image = piece.getImage();

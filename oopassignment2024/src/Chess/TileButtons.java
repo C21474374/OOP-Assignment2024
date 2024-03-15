@@ -24,26 +24,58 @@ class Buttontile implements ActionListener{
 	Color  brown   = new Color(139,69,19); 
 	private static boolean last_color;
 	private boolean is_wheat;
-	
+	static boolean is_moveable;
+	public static Tile moveable_tiles[];
+	public static Tile killable_tiles[];
 	static boolean is_yellow = false;
 	// Button event method
-	public Buttontile(Tile tile,boolean is_wheat,Piece selected_piece) {
+	public Buttontile(Tile tile,boolean is_wheat) {
 		current_tile = tile;
-		this.selected_piece = selected_piece;
+		
 		
 		this.is_wheat = is_wheat;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			
+		System.out.println("Tile is selected:"+current_tile.isIs_selected());
+		System.out.println("Tile is moveable:"+current_tile.is_moveable);
 			//selected_tile = current_tile;
-			if (!current_tile.is_selected) {
+			if (!current_tile.isIs_selected()) {
 				current_tile.selectTile();
+				Tile.has_moved = false;
+				
+				
 			}
 			
-			else if (current_tile.is_moveable) {
-				current_tile.selected_piece.movePiece(current_tile);
+			if (current_tile.is_moveable == true) {
+				System.out.println("Piece moved");
+				Tile.selected_piece.movePiece(current_tile);
+				for (int i = 0;i<moveable_tiles.length;i++) {
+					moveable_tiles[i].deselectTile();
+				}
+				for (int j = 0;j<killable_tiles.length;j++) {
+					killable_tiles[j].deselectTile();
+				}
+				current_tile.deselectTile();
+				Tile.has_moved = true;
 			}
+			if (current_tile.is_killable == true) {
+				System.out.println("Piece taken");
+				current_tile.current_piece = null;
+				
+				Tile.selected_piece.movePiece(current_tile);
+				for (int i = 0;i<moveable_tiles.length;i++) {
+					moveable_tiles[i].deselectTile();
+				}
+				for (int j = 0;j<killable_tiles.length;j++) {
+					killable_tiles[j].deselectTile();
+				}
+				current_tile.deselectTile();
+				Tile.has_moved = true;
+			}
+
+			
+			
 			
 			
 	
