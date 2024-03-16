@@ -42,8 +42,15 @@ class Buttontile implements ActionListener{
 		System.out.println("Tile is moveable:"+current_tile.is_moveable);
 			//selected_tile = current_tile;
 			if ((!current_tile.isIs_selected()) && (current_tile.has_piece)) {
-				current_tile.selectTile();
-				Tile.has_moved = false;
+				if((current_tile.current_piece.isIs_white()) && (maingame.is_whites_turn)) {
+					current_tile.selectTile();
+					Tile.has_moved = false;
+				}
+				else if((!current_tile.current_piece.isIs_white()) && (!maingame.is_whites_turn)) {
+					current_tile.selectTile();
+					Tile.has_moved = false;
+				}
+				
 				
 				
 			}

@@ -124,10 +124,11 @@ class Tile {
 		Color wheat = new Color(245,222,179);
 		Color yellow = new Color(255,255,0);
 		Color  brown   = new Color(139,69,19); 
-	
+		
 		selected_piece = current_piece;
 		
 		if (has_piece) {
+			System.out.println(current_piece.isIs_white());
 			Buttontile.selected_tile = this;
 			is_selected = true;
 			is_moveable = false;
@@ -149,9 +150,7 @@ class Tile {
 			is_yellow = true;
 			if (current_piece.getPiece_type() == "Pawn") {
 				current_piece.selectPawn(left, top);
-				
-				
-			//current_piece.movePiece(maingame.position[left-1][top]);
+				//current_piece.movePiece(maingame.position[left-1][top]);
 				}
 			else if (current_piece.getPiece_type() == "Knight") {
 				System.out.println("Knight selected");
@@ -159,15 +158,19 @@ class Tile {
 			}
 			else if (current_piece.getPiece_type() == "King") {
 				System.out.println("Queen selected");
-				//current_piece.selectKing(left, top);
+				current_piece.selectKing(left, top);
 			}
 			else if (current_piece.getPiece_type() == "Bishop") {
 				System.out.println("Queen selected");
-				//current_piece.selectBishop(left, top);
+				current_piece.selectBishop(left, top);
 			}
 			else if (current_piece.getPiece_type() == "Rook") {
 				System.out.println("Queen selected");
 				current_piece.selectRook(left, top);
+			}
+			else if (current_piece.getPiece_type() == "Queen") {
+				System.out.println("Queen selected");
+				current_piece.selectQueen(left, top);
 			}
 		}
 		else if (!has_piece) {

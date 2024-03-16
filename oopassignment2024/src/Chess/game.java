@@ -18,13 +18,13 @@ class maingame {
 	int left[] = new int[8];
 	static Tile[][] position = new Tile[8][8];
 	boolean is_wheat = true;
-	
+	static boolean is_whites_turn;
 	
 	ImageIcon queen_white = new ImageIcon("ChessPieces/queen_white.png");
 	
 	
 	public void start2player(){
-		
+		is_whites_turn = true;
 		JFrame gui = new JFrame();
 		gui.setTitle("Chess");
 		gui.setResizable(false);
