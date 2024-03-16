@@ -200,17 +200,25 @@ class Piece {
 					
 					if((new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
 						message = "Black wins!";
+						JFrame frame = new JFrame();
+						frame.setTitle("Win screen");
+						frame.setResizable(false);
+						frame.setSize(250,250);
+						
+						// Alert box that displays message variable
+						JOptionPane.showMessageDialog(frame, message);
 					}
-					else {
+					else if ((!new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
 						message = "White wins!";
+						JFrame frame = new JFrame();
+						frame.setTitle("Win screen");
+						frame.setResizable(false);
+						frame.setSize(250,250);
+						
+						// Alert box that displays message variable
+						JOptionPane.showMessageDialog(frame, message);
 					}
-					JFrame frame = new JFrame();
-					frame.setTitle("Win screen");
-					frame.setResizable(false);
-					frame.setSize(250,250);
 					
-					// Alert box that displays message variable
-					JOptionPane.showMessageDialog(frame, message);
 				}
 			}
 			catch(Exception e) {
