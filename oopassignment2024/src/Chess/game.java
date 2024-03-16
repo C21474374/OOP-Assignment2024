@@ -36,7 +36,7 @@ class maingame {
 		JPanel text = new JPanel();
 		gui.setTitle("Chess");
 		gui.setResizable(false);
-		gui.setSize(600,600);
+		gui.setSize(600,650);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		int size = 30;
 		Container contentPane = gui.getContentPane();
@@ -71,15 +71,15 @@ class maingame {
         contentPane.add(labelPanel, BorderLayout.SOUTH);
         
         whos_turn_bottom = new JLabel("It is White's turn", JLabel.CENTER);
-        JLabel white_score = new JLabel("Score:2", JLabel.CENTER);
-        white_score.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
-        white_score.setForeground(Color.WHITE);
+//        JLabel white_score = new JLabel("Score:2", JLabel.CENTER);
+//        white_score.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+//        white_score.setForeground(Color.WHITE);
         labelPanel.setBackground(green);
         
         whos_turn_bottom.setBorder(BorderFactory.createEmptyBorder(size, size,size, size));
         whos_turn_bottom.setForeground(Color.WHITE);
         labelPanel.add(whos_turn_bottom, BorderLayout.CENTER);
-        labelPanel.add(white_score, BorderLayout.EAST);
+//        labelPanel.add(white_score, BorderLayout.EAST);
         
         this.DisplayScore();
 	    

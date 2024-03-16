@@ -2,6 +2,8 @@ package Chess;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 interface PieceControl
@@ -121,11 +123,17 @@ class Piece {
 		JButton current_button = current_tile.getButton();
 		JButton new_button = new_tile.getButton();
 			current_tile.deselectTile();
+			String message;
+			
+				
+			
 			current_tile.has_piece = false;
-			new_tile.has_piece = true;
+			
 			new_tile.deselectTile();
-			new_tile.current_piece = this;
+			
+		
 			System.out.println("hello world!");
+			
 			if(piece_type == "Knight") {
 				if (is_white) {
 					new_tile.placePiece(knight_white,piece_type);
@@ -185,7 +193,33 @@ class Piece {
 			}
 			maingame.is_whites_turn = !maingame.is_whites_turn;
 			maingame.DisplayScore();
+			try {
+				if (new_tile.has_piece)
+					
+				{
+					
+					if((new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
+						message = "Black wins!";
+					}
+					else {
+						message = "White wins!";
+					}
+					JFrame frame = new JFrame();
+					frame.setTitle("Win screen");
+					frame.setResizable(false);
+					frame.setSize(250,250);
+					
+					// Alert box that displays message variable
+					JOptionPane.showMessageDialog(frame, message);
+				}
+			}
+			catch(Exception e) {
+				
+			}
+			
+			new_tile.current_piece = this;
 			current_tile = new_tile;
+			
 			new_tile.has_piece = true;
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
