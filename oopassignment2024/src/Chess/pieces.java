@@ -7,11 +7,11 @@ import javax.swing.JButton;
 interface PieceControl
 {
 	void movePiece(Tile current_tile, Tile new_tile);
-	
+
 }
 class Piece {
-	
-	 
+
+
 	ImageIcon queen_black = new ImageIcon("Chesspieces/queen_black.png");
 	ImageIcon king_black = new ImageIcon("Chesspieces/king_black.png");
 	ImageIcon bishop_black = new ImageIcon("Chesspieces/bishop_black.png");
@@ -24,7 +24,7 @@ class Piece {
 	ImageIcon knight_white = new ImageIcon("Chesspieces/knight_white.png");
 	ImageIcon rook_white = new ImageIcon("Chesspieces/rook_white.png");
 	ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
-	
+
 	static boolean has_moved = false;
 	private boolean pawn_moved = false;
 	private boolean is_white;
@@ -32,7 +32,7 @@ class Piece {
 	boolean alive = true;
 	Tile current_tile;
 	private String piece_type;
-	
+
 	public Piece(boolean is_white,Tile current_tile,String piece_type){
 		this.is_white = is_white;
 		this.piece_type = piece_type;
@@ -80,11 +80,11 @@ class Piece {
 		}
 		else if (piece_type == "Pawn") {
 			if (is_white) {
-				
+
 				current_tile.placePiece(pawn_white,piece_type);
 			}
 			else if(!is_white) {
-				
+
 				current_tile.placePiece(pawn_black,piece_type);
 			}
 		}
@@ -115,8 +115,9 @@ class Piece {
 	public void setIs_white(boolean is_white) {
 		this.is_white = is_white;
 	}
-	
+
 	public void movePiece(Tile new_tile) {
+		
 		JButton current_button = current_tile.getButton();
 		JButton new_button = new_tile.getButton();
 			current_tile.deselectTile();
@@ -183,13 +184,15 @@ class Piece {
 				System.out.println("It is now Whites turn");
 			}
 			maingame.is_whites_turn = !maingame.is_whites_turn;
+			maingame.DisplayScore();
 			current_tile = new_tile;
 			new_tile.has_piece = true;
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
 			
+
 	}
-	
+
 	public void selectPawn(int left,int top) {
 		if ((is_white) && (maingame.is_whites_turn)) {
 			try {
@@ -201,26 +204,26 @@ class Piece {
 				}
 			}
 				catch(Exception e) {
-					
+
 				}
-			
+
 			try {
 				if (!maingame.position[left-1][top-1].current_piece.is_white) {
 					maingame.position[left-1][top-1].killTile();
 				}
-				
+
 			}
 			catch(Exception e) {
-				
+
 			}
 			try {
 				if (!maingame.position[left-1][top+1].current_piece.is_white) {
 					maingame.position[left-1][top+1].killTile();
 				}
-				
+
 			}
 			catch(Exception e) {
-				
+
 			}
 		}
 		else if((!is_white) && (!maingame.is_whites_turn)) {
@@ -233,86 +236,86 @@ class Piece {
 				}
 			}
 				catch(Exception e) {
-					
+
 				}
-			
-			
+
+
 			try {
 				if(maingame.position[left+1][top-1].current_piece.is_white) {
 					maingame.position[left+1][top-1].killTile();
 				}
-			
+
 			}
 			catch(Exception e) {
-				
+
 			}
 			try {
 				if (maingame.position[left+1][top+1].current_piece.is_white) {
 					maingame.position[left+1][top+1].killTile();
 				}
-			
+
 			}
 			catch(Exception e) {
-				
+
 			}
-			
-			
+
+
 		}
-			
+
 	}
-	
+
 	public void selectKnight(int left,int top) {
 		int knight_left[] = {1,-1,-2,-2,-1,1,2,2};
 		int knight_top[] = {-2,-2,-1,1,2,2,1,-1};
 		System.out.println("Hellooooo");
 		if ((is_white) && (maingame.is_whites_turn)) {
-			
+
 				for(int i = 0;i<8;i++) {
 					try {
 						if(!maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) {
 							maingame.position[left+knight_left[i]][top+knight_top[i]].moveableTile();
-							
+
 						}
 						else if((maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) && (!maingame.position[left+knight_left[i]][top+knight_top[i]].current_piece.is_white) ){
 							maingame.position[left+knight_left[i]][top+knight_top[i]].killTile();
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
-				
+
 				}
-				
+
 		}
 		else if((!is_white) && (!maingame.is_whites_turn)) {
-			
+
 				for(int i = 0;i<8;i++) {
 				try {
 					System.out.println("Hello world");
 					if(!maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) {
 						maingame.position[left+knight_left[i]][top+knight_top[i]].moveableTile();
-						
+
 					}
 					else if((maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) && (maingame.position[left+knight_left[i]][top+knight_top[i]].current_piece.is_white) ){
 						maingame.position[left+knight_left[i]][top+knight_top[i]].killTile();
 					}
 				}
 				catch(Exception e) {
-									
+
 				}
-								
+
 				}
-				
+
 		}
-		
+
 	}//end select knight
-	
+
 	public void selectRook(int left,int top) {
-		
+
 		System.out.println("Hellooooo");
 		System.out.println("is_white="+is_white);
 		if ((is_white) && (maingame.is_whites_turn)) {
-			
+
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left+i][top].has_piece) {
@@ -325,10 +328,10 @@ class Piece {
 								i = 8;
 							}
 						}
-					
+
 					}
 					catch(Exception e) {
-						
+
 					}
 
 				}
@@ -336,7 +339,7 @@ class Piece {
 					try {
 						if(!maingame.position[left-i][top].has_piece) {
 							maingame.position[left-i][top].moveableTile();
-							
+
 						}
 						else if((maingame.position[left-i][top].has_piece) && (!maingame.position[left-i][top].current_piece.is_white) ){
 							maingame.position[left-i][top].killTile();
@@ -347,14 +350,14 @@ class Piece {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left][top+i].has_piece) {
 							maingame.position[left][top+i].moveableTile();
-							
+
 						}
 						else if((maingame.position[left][top+i].has_piece) && (!maingame.position[left][top+i].current_piece.is_white) ){
 							maingame.position[left][top+i].killTile();
@@ -365,14 +368,14 @@ class Piece {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left][top-i].has_piece) {
 							maingame.position[left][top-i].moveableTile();
-							
+
 						}
 						else if((maingame.position[left][top-i].has_piece) && (!maingame.position[left][top-i].current_piece.is_white) ){
 							maingame.position[left][top-i].killTile();
@@ -383,22 +386,22 @@ class Piece {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
-				
+
 		}
 		else if((!is_white) && (!maingame.is_whites_turn)) {
-			
+
 			for(int i = 1;i<8;i++) {
 				try {
 					if(!maingame.position[left+i][top].has_piece) {
 						maingame.position[left+i][top].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left+i][top].has_piece) && (maingame.position[left+i][top].current_piece.is_white) ){
-							
+
 							maingame.position[left+i][top].killTile();
 							i = 8;
 						}
@@ -406,10 +409,10 @@ class Piece {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -417,11 +420,11 @@ class Piece {
 				try {
 					if(!maingame.position[left-i][top].has_piece) {
 						maingame.position[left-i][top].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left-i][top].has_piece) && (maingame.position[left-i][top].current_piece.is_white) ){
-							
+
 							maingame.position[left-i][top].killTile();
 							i = 8;
 						}
@@ -429,10 +432,10 @@ class Piece {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -440,11 +443,11 @@ class Piece {
 				try {
 					if(!maingame.position[left][top+i].has_piece) {
 						maingame.position[left][top+i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left][top+i].has_piece) && (maingame.position[left][top+i].current_piece.is_white) ){
-							
+
 							maingame.position[left][top+i].killTile();
 							i = 8;
 						}
@@ -452,10 +455,10 @@ class Piece {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -463,11 +466,11 @@ class Piece {
 				try {
 					if(!maingame.position[left][top-i].has_piece) {
 						maingame.position[left][top-i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left][top-i].has_piece) && (maingame.position[left][top-i].current_piece.is_white) ){
-							
+
 							maingame.position[left][top-i].killTile();
 							i = 8;
 						}
@@ -475,22 +478,22 @@ class Piece {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
 		}
 	}//end select Rook
-	
+
 public void selectBishop(int left,int top) {
-		
+
 		System.out.println("Hellooooo");
 		System.out.println("is_white="+is_white);
 		if ((is_white) && (maingame.is_whites_turn)) {
-			
+
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left+i][top+i].has_piece) {
@@ -503,10 +506,10 @@ public void selectBishop(int left,int top) {
 								i = 8;
 							}
 						}
-					
+
 					}
 					catch(Exception e) {
-						
+
 					}
 
 				}
@@ -514,7 +517,7 @@ public void selectBishop(int left,int top) {
 					try {
 						if(!maingame.position[left-i][top-i].has_piece) {
 							maingame.position[left-i][top-i].moveableTile();
-							
+
 						}
 						else if((maingame.position[left-i][top-i].has_piece) && (!maingame.position[left-i][top-i].current_piece.is_white) ){
 							maingame.position[left-i][top-i].killTile();
@@ -525,14 +528,14 @@ public void selectBishop(int left,int top) {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left-i][top+i].has_piece) {
 							maingame.position[left-i][top+i].moveableTile();
-							
+
 						}
 						else if((maingame.position[left-i][top+i].has_piece) && (!maingame.position[left-i][top+i].current_piece.is_white) ){
 							maingame.position[left-i][top+i].killTile();
@@ -543,14 +546,14 @@ public void selectBishop(int left,int top) {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left+i][top-i].has_piece) {
 							maingame.position[left+i][top-i].moveableTile();
-							
+
 						}
 						else if((maingame.position[left+i][top-i].has_piece) && (!maingame.position[left+i][top-i].current_piece.is_white) ){
 							maingame.position[left+i][top-i].killTile();
@@ -561,22 +564,22 @@ public void selectBishop(int left,int top) {
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
 				}
-				
+
 		}
 		else if((!is_white) && (!maingame.is_whites_turn)) {
-			
+
 			for(int i = 1;i<8;i++) {
 				try {
 					if(!maingame.position[left+i][top+i].has_piece) {
 						maingame.position[left+i][top+i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left+i][top+i].has_piece) && (maingame.position[left+i][top+i].current_piece.is_white) ){
-							
+
 							maingame.position[left+i][top+i].killTile();
 							i = 8;
 						}
@@ -584,10 +587,10 @@ public void selectBishop(int left,int top) {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -595,11 +598,11 @@ public void selectBishop(int left,int top) {
 				try {
 					if(!maingame.position[left-i][top-i].has_piece) {
 						maingame.position[left-i][top-i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left-i][top-i].has_piece) && (maingame.position[left-i][top-i].current_piece.is_white) ){
-							
+
 							maingame.position[left-i][top-i].killTile();
 							i = 8;
 						}
@@ -607,10 +610,10 @@ public void selectBishop(int left,int top) {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -618,11 +621,11 @@ public void selectBishop(int left,int top) {
 				try {
 					if(!maingame.position[left-i][top+i].has_piece) {
 						maingame.position[left-i][top+i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left-i][top+i].has_piece) && (maingame.position[left-i][top+i].current_piece.is_white) ){
-							
+
 							maingame.position[left-i][top+i].killTile();
 							i = 8;
 						}
@@ -630,10 +633,10 @@ public void selectBishop(int left,int top) {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -641,11 +644,11 @@ public void selectBishop(int left,int top) {
 				try {
 					if(!maingame.position[left+i][top-i].has_piece) {
 						maingame.position[left+i][top-i].moveableTile();
-						
+
 					}
 					else {
 						if((maingame.position[left+i][top-i].has_piece) && (maingame.position[left+i][top-i].current_piece.is_white) ){
-							
+
 							maingame.position[left+i][top-i].killTile();
 							i = 8;
 						}
@@ -653,10 +656,10 @@ public void selectBishop(int left,int top) {
 							i = 8;
 						}
 					}
-				
+
 				}
 				catch(Exception e) {
-					
+
 				}
 
 			}
@@ -667,71 +670,71 @@ public void selectBishop(int left,int top) {
 		selectBishop(left,top);
 		selectRook(left,top);
 	}
-	
+
 	public void selectKing(int left,int top) {
 		int king_left[] = {1,0,-1,-1,-1,0,1,1};
 		int king_top[] = {-1,-1,-1,0,1,1,1,0};
 		System.out.println("Hellooooo");
 		if ((is_white) && (maingame.is_whites_turn)) {
-			
+
 				for(int i = 0;i<8;i++) {
 					try {
 						if(!maingame.position[left+king_left[i]][top+king_top[i]].has_piece) {
 							maingame.position[left+king_left[i]][top+king_top[i]].moveableTile();
-							
+
 						}
 						else if((maingame.position[left+king_left[i]][top+king_top[i]].has_piece) && (!maingame.position[left+king_left[i]][top+king_top[i]].current_piece.is_white) ){
 							maingame.position[left+king_left[i]][top+king_top[i]].killTile();
 						}
 					}
 					catch(Exception e) {
-						
+
 					}
-				
+
 				}
-				
+
 		}
 		else if((!is_white) && (!maingame.is_whites_turn)) {
-			
+
 				for(int i = 0;i<8;i++) {
 				try {
 					System.out.println("Hello world");
 					if(!maingame.position[left+king_left[i]][top+king_top[i]].has_piece) {
 						maingame.position[left+king_left[i]][top+king_top[i]].moveableTile();
-						
+
 					}
 					else if((maingame.position[left+king_left[i]][top+king_top[i]].has_piece) && (maingame.position[left+king_left[i]][top+king_top[i]].current_piece.is_white) ){
 						maingame.position[left+king_left[i]][top+king_top[i]].killTile();
 					}
 				}
 				catch(Exception e) {
-									
+
 				}
-								
+
 				}
-				
+
 		}
-		
+
 	}
-	
-	
+
+
 	public static void checkPath() {
-		for (int i = 0;i<Buttontile.moveable_tiles.length;i++) {
-			if(Buttontile.moveable_tiles[i].has_piece) {
-				Buttontile.moveable_tiles[i].deselectTile();
+		for (Tile moveable_tile : Buttontile.moveable_tiles) {
+			if(moveable_tile.has_piece) {
+				moveable_tile.deselectTile();
 			}
 		System.out.println("path checked");
 	}
-		
+
 	}
 }
-	
-	
 
 
 
-			
-	
+
+
+
+
 
 
 
@@ -744,8 +747,8 @@ public void selectBishop(int left,int top) {
 
 public class pieces {
 
-	
-	
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

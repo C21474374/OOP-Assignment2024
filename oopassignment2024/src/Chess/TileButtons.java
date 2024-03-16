@@ -21,7 +21,7 @@ class Buttontile implements ActionListener{
 	public static JButton last_button = null;
 	Color wheat = new Color(245,222,179);
 	Color yellow = new Color(255,255,0);
-	Color  brown   = new Color(139,69,19); 
+	Color  brown   = new Color(139,69,19);
 	private static boolean last_color;
 	private boolean is_wheat;
 	static boolean is_moveable;
@@ -32,8 +32,8 @@ class Buttontile implements ActionListener{
 	// Button event method
 	public Buttontile(Tile tile,boolean is_wheat) {
 		current_tile = tile;
-		
-		
+
+
 		this.is_wheat = is_wheat;
 	}
 	@Override
@@ -50,65 +50,65 @@ class Buttontile implements ActionListener{
 					current_tile.selectTile();
 					Tile.has_moved = false;
 				}
-				
-				
-				
+
+
+
 			}
 			if ((!current_tile.isIs_selected()) && (!current_tile.has_piece)) {
 				clearTiles();
 			}
-			
-			if (current_tile.is_moveable == true) {
+
+			if (current_tile.is_moveable) {
 				System.out.println("Piece moved");
 				Tile.selected_piece.movePiece(current_tile);
 				clearTiles();
 				current_tile.deselectTile();
 				Tile.has_moved = true;
 			}
-			if (current_tile.is_killable == true) {
+			if (current_tile.is_killable) {
 				System.out.println("Piece taken1");
-				
-				
+
+
 				Tile.selected_piece.movePiece(current_tile);
 				clearTiles();
-				
+
 				current_tile.deselectTile();
 				Tile.has_moved = true;
 			}
 
-			
-			
-			
-			
-	
-	
-	
+
+
+
+
+
+
+
 
 }
-	
-	
+
+
 	public static void clearTiles() {
 		if (selected_tile == null) {
-			
+
 		}
 		else {
 			selected_tile.deselectTile();
 		}
-	
+
 		if(moveable_tiles == null) {
-			
+
 		}
 		else {
-			for (int i = 0;i<moveable_tiles.length;i++) {
-				moveable_tiles[i].deselectTile();
+			for (Tile moveable_tile : moveable_tiles) {
+				moveable_tile.deselectTile();
 			}
 		}
 		if(killable_tiles == null) {
-			
+
 		}
 		else {
-			for (int j = 0;j<killable_tiles.length;j++) {
-				killable_tiles[j].deselectTile();
+			for (Tile killable_tile : killable_tiles) {
+				killable_tile.deselectTile();
 			}
 		}
 	}
@@ -119,7 +119,7 @@ class Buttontile implements ActionListener{
 public class TileButtons {
 
 	public static void main(String[] args) {
-		
+
 
 	}
 

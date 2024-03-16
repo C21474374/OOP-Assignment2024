@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class test {
+public class panel {
 
 	private JFrame frame;
 
@@ -17,7 +17,7 @@ public class test {
 			@Override
 			public void run() {
 				try {
-					test window = new test();
+					panel window = new panel();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class test {
 	/**
 	 * Create the application.
 	 */
-	public test() {
+	public panel() {
 		initialize();
 	}
 
