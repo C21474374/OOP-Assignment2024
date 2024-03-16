@@ -251,12 +251,159 @@ class Piece {
 			
 			
 		}
-		
-		
-
-		
 			
+	}
+	
+	public void selectKnight(int left,int top) {
+		int knight_left[] = {1,-1,-2,-2,-1,1,2,2};
+		int knight_top[] = {-2,-2,-1,1,2,2,1,-1};
+		System.out.println("Hellooooo");
+		if (is_white) {
+			
+				for(int i = 0;i<8;i++) {
+					try {
+						if(!maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) {
+							maingame.position[left+knight_left[i]][top+knight_top[i]].moveableTile();
+							
+						}
+						else if((maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) && (!maingame.position[left+knight_left[i]][top+knight_top[i]].current_piece.is_white) ){
+							maingame.position[left+knight_left[i]][top+knight_top[i]].killTile();
+						}
+					}
+					catch(Exception e) {
+						
+					}
+				
+				}
+				
 		}
+		else if(!is_white) {
+			
+				for(int i = 0;i<8;i++) {
+				try {
+					System.out.println("Hello world");
+					if(!maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) {
+						maingame.position[left+knight_left[i]][top+knight_top[i]].moveableTile();
+						
+					}
+					else if((maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) && (maingame.position[left+knight_left[i]][top+knight_top[i]].current_piece.is_white) ){
+						maingame.position[left+knight_left[i]][top+knight_top[i]].killTile();
+					}
+				}
+				catch(Exception e) {
+									
+				}
+								
+				}
+				
+		}
+		
+	}//end select knight
+	
+	public void selectRook(int left,int top) {
+		int rook_left[] = {1,-1,-2,-2,-1,1,2,2};
+		int rook_top[] = {-2,-2,-1,1,2,2,1,-1};
+		System.out.println("Hellooooo");
+		if (is_white) {
+			
+				for(int i = 1;i<8;i++) {
+					try {
+						if(!maingame.position[left+i][top].has_piece) {
+							maingame.position[left+i][top].moveableTile();
+							if((maingame.position[left+i][top].has_piece) && (!maingame.position[left+i][top].current_piece.is_white) ){
+								maingame.position[left+i][top].killTile();
+								i = 8;
+							}
+							if ((maingame.position[left+i][top].has_piece) && (maingame.position[left+i][top].current_piece.is_white)) {
+								i = 8;
+							}
+						}
+					
+					}
+					catch(Exception e) {
+						
+					}
+
+				}
+				for(int i = 1;i<8;i++) {
+					try {
+						if(!maingame.position[left-i][top].has_piece) {
+							maingame.position[left-i][top].moveableTile();
+							
+						}
+						else if((maingame.position[left-i][top].has_piece) && (!maingame.position[left-i][top].current_piece.is_white) ){
+							maingame.position[left-i][top].killTile();
+							i = 8;
+						}
+						else if ((maingame.position[left-i][top].has_piece) && (maingame.position[left-i][top].current_piece.is_white)) {
+							i = 8;
+						}
+					}
+					catch(Exception e) {
+						
+					}
+				}
+				for(int i = 1;i<8;i++) {
+					try {
+						if(!maingame.position[left][top+i].has_piece) {
+							maingame.position[left][top+i].moveableTile();
+							
+						}
+						else if((maingame.position[left][top+i].has_piece) && (!maingame.position[left][top+i].current_piece.is_white) ){
+							maingame.position[left][top+i].killTile();
+							i = 8;
+						}
+						else if ((maingame.position[left][top+i].has_piece) && (maingame.position[left][top+i].current_piece.is_white)) {
+							i = 8;
+						}
+					}
+					catch(Exception e) {
+						
+					}
+				}
+				for(int i = 1;i<8;i++) {
+					try {
+						if(!maingame.position[left][top-i].has_piece) {
+							maingame.position[left][top-i].moveableTile();
+							
+						}
+						else if((maingame.position[left][top-i].has_piece) && (!maingame.position[left][top-i].current_piece.is_white) ){
+							maingame.position[left][top-i].killTile();
+							i = 8;
+						}
+						else if ((maingame.position[left][top-i].has_piece) && (maingame.position[left][top-i].current_piece.is_white)) {
+							i = 8;
+						}
+					}
+					catch(Exception e) {
+						
+					}
+				}
+				
+		}
+		else if(!is_white) {
+			
+			for(int i = 0;i<8;i++) {
+				try {
+					if(!maingame.position[left+i-1][top].has_piece) {
+						maingame.position[left+i][top].moveableTile();
+						
+					}
+					else if((maingame.position[left+i][top+i].has_piece) && (!maingame.position[left+i][top+i].current_piece.is_white) ){
+						maingame.position[left+i][top+i].killTile();
+					}
+				}
+				catch(Exception e) {
+					
+				}
+			
+			}
+				
+		}
+		
+	}//end select Rook
+	
+	
 	public static void checkPath() {
 		for (int i = 0;i<Buttontile.moveable_tiles.length;i++) {
 			if(Buttontile.moveable_tiles[i].has_piece) {

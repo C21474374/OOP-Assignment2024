@@ -153,6 +153,22 @@ class Tile {
 				
 			//current_piece.movePiece(maingame.position[left-1][top]);
 				}
+			else if (current_piece.getPiece_type() == "Knight") {
+				System.out.println("Knight selected");
+				current_piece.selectKnight(left, top);
+			}
+			else if (current_piece.getPiece_type() == "King") {
+				System.out.println("Queen selected");
+				//current_piece.selectKing(left, top);
+			}
+			else if (current_piece.getPiece_type() == "Bishop") {
+				System.out.println("Queen selected");
+				//current_piece.selectBishop(left, top);
+			}
+			else if (current_piece.getPiece_type() == "Rook") {
+				System.out.println("Queen selected");
+				current_piece.selectRook(left, top);
+			}
 		}
 		else if (!has_piece) {
 			this.clearTiles();
