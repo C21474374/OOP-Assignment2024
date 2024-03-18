@@ -25,7 +25,7 @@ class maingame {
 	JPanel labelPanel;
 	static JLabel whos_turn_bottom;
 	static JLabel whos_turn_top;
-	static Color green = new Color(60,179,113);
+	static Color bg= new Color(60,179,113);
 
 	ImageIcon queen_white = new ImageIcon("ChessPieces/queen_white.png");
 
@@ -44,6 +44,7 @@ class maingame {
 	
 	    
 	    JPanel board = new JPanel(new GridLayout(8, 8));
+	    board.setBackground(bg);
 	    contentPane.add(board, BorderLayout.CENTER);
 	    
 	    
@@ -51,20 +52,20 @@ class maingame {
 	    contentPane.add(leftgreen, BorderLayout.WEST);
 	    leftgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
 	
-	    leftgreen.setBackground(green);
+	    leftgreen.setBackground(bg);
 	    
 	    JPanel rightgreen = new JPanel(new BorderLayout());
 	    contentPane.add(rightgreen, BorderLayout.EAST);
 	    rightgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
-	    rightgreen.setBackground(green);
+	    rightgreen.setBackground(bg);
 	    
 	    JPanel topgreen = new JPanel(new BorderLayout());
 	    contentPane.add(topgreen, BorderLayout.NORTH);
 	    topgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
-	    topgreen.setBackground(green);
+	    topgreen.setBackground(bg);
 	    whos_turn_top = new JLabel("It is Black's turn", JLabel.CENTER);
 	    
-        whos_turn_top.setForeground(green);
+        whos_turn_top.setForeground(bg);
         topgreen.add(whos_turn_top, BorderLayout.CENTER);
 	    
         labelPanel = new JPanel(new BorderLayout());
@@ -74,7 +75,7 @@ class maingame {
 //        JLabel white_score = new JLabel("Score:2", JLabel.CENTER);
 //        white_score.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
 //        white_score.setForeground(Color.WHITE);
-        labelPanel.setBackground(green);
+        labelPanel.setBackground(bg);
         
         whos_turn_bottom.setBorder(BorderFactory.createEmptyBorder(size, size,size, size));
         whos_turn_bottom.setForeground(Color.WHITE);
@@ -247,11 +248,11 @@ class maingame {
 	public static void DisplayScore() {
 		
 		if (is_whites_turn) {
-			whos_turn_top.setForeground(green);
+			whos_turn_top.setForeground(bg);
 	        whos_turn_bottom.setForeground(Color.WHITE);
 	    } else {
 	    	whos_turn_top.setForeground(Color.WHITE);
-	        whos_turn_bottom.setForeground(green);
+	        whos_turn_bottom.setForeground(bg);
 	    }
 	}
 }

@@ -23,7 +23,7 @@ class Buttontile implements ActionListener{
 	Color yellow = new Color(255,255,0);
 	Color  brown   = new Color(139,69,19);
 	private static boolean last_color;
-	private boolean is_wheat;
+	private boolean is_light_tile;
 	static boolean is_moveable;
 	public static Tile moveable_tiles[];
 	public static Tile killable_tiles[];
@@ -34,7 +34,7 @@ class Buttontile implements ActionListener{
 		current_tile = tile;
 
 
-		this.is_wheat = is_wheat;
+		this.is_light_tile = is_wheat;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

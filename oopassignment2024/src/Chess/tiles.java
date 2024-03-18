@@ -21,16 +21,16 @@ class Tile {
 	JButton tile_button;
 	boolean tile_selected = false;
 	boolean has_piece = false;
-	boolean is_wheat;
+	boolean is_light_tile;
 	Piece current_piece;
 	public static Piece selected_piece;
 	boolean is_moveable = false;
 	private boolean is_selected = false;
 	boolean is_killable = false;
-	Color  brown   = new Color(139,69,19);
-	Color wheat = new Color(245,222,179);
-	Color yellow = new Color(255,255,0);
-	Color red = new Color(255,0,0);
+	static Color  dark_tile   = new Color(139,69,19);
+	static Color light_tile = new Color(245,222,179);
+	static Color highlighted_tile = new Color(255,255,0);
+	static Color kill_tile = new Color(255,0,0);
 	String piecetypes[] = {"Queen","King","Pawn","Rook","Bishop","Knight"};
 	static int number;
 	public static boolean has_moved;
@@ -45,14 +45,14 @@ class Tile {
 		tile_button = new JButton();
 		this.top = top;
 		this.left = left;
-		this.is_wheat = is_wheat;
+		this.is_light_tile = is_wheat;
 
 		Buttontile evt = new Buttontile(this,is_wheat);
 		if (is_wheat) {
-			tile_button.setBackground(wheat);
+			tile_button.setBackground(light_tile);
 		}
 		else if (!is_wheat) {
-			tile_button.setBackground(brown);
+			tile_button.setBackground(dark_tile);
 		}
 
 		//REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
@@ -145,7 +145,7 @@ class Tile {
 			}
 			tile_button.setBackground(yellow);
 
-			last_color = is_wheat;
+			last_color = is_light_tile;
 
 			last_button = tile_button;
 			is_yellow = true;
@@ -182,11 +182,11 @@ class Tile {
 
 
 	public void deselectTile() {
-		if (is_wheat) {
-			tile_button.setBackground(wheat);
+		if (is_light_tile) {
+			tile_button.setBackground(light_tile);
 		}
-		else if (!is_wheat) {
-			tile_button.setBackground(brown);
+		else if (!is_light_tile) {
+			tile_button.setBackground(dark_tile);
 		}
 		is_selected = false;
 		is_moveable = false;
@@ -198,7 +198,7 @@ class Tile {
 		is_selected = true;
 		is_killable = true;
 		if (this.has_piece) {
-			tile_button.setBackground(red);
+			tile_button.setBackground(kill_tile);
 		}
 		if (Buttontile.killable_tiles == null) {
 			Buttontile.killable_tiles = new Tile[1];
@@ -233,7 +233,7 @@ class Tile {
         }
 		System.out.println("Position "+left+","+top+" is moveable");
 		if (!has_piece) {
-			tile_button.setBackground(yellow);
+			tile_button.setBackground(highlighted_tile);
 		}
 		else if (has_piece) {
 			System.out.println("red");
