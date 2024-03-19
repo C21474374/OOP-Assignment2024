@@ -3,20 +3,28 @@ package Chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.metal.MetalButtonUI;
 
 class maingame {
 
 
 
-
+	
 	int top[] = new int[8];
 	int left[] = new int[8];
 	static Tile[][] position = new Tile[8][8];
@@ -25,18 +33,20 @@ class maingame {
 	JPanel labelPanel;
 	static JLabel whos_turn_bottom;
 	static JLabel whos_turn_top;
-	static Color bg= new Color(60,179,113);
-
-	ImageIcon queen_white = new ImageIcon("ChessPieces/queen_white.png");
+	static Color bg= new Color(94,61,28);
+	static Color board_border = new Color(0,0,0);
+	
 
 
 	public void start2player(){
+		
+		
 		is_whites_turn = true;
 		JFrame gui = new JFrame();
 		JPanel text = new JPanel();
 		gui.setTitle("Chess");
 		gui.setResizable(false);
-		gui.setSize(600,650);
+		gui.setSize(850,650);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		int size = 30;
 		Container contentPane = gui.getContentPane();
@@ -44,45 +54,154 @@ class maingame {
 	
 	    
 	    JPanel board = new JPanel(new GridLayout(8, 8));
-	    board.setBackground(bg);
+	    board.setBackground(board_border);
+	    board.setBorder(BorderFactory.createLineBorder(board_border ,5));
 	    contentPane.add(board, BorderLayout.CENTER);
 	    
 	    
 	    JPanel leftgreen = new JPanel(new BorderLayout());
 	    contentPane.add(leftgreen, BorderLayout.WEST);
 	    leftgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
-	
 	    leftgreen.setBackground(bg);
 	    
-	    JPanel rightgreen = new JPanel(new BorderLayout());
+	    
+	    
+	    
+	    
+	    JPanel rightgreen = new JPanel();
+        rightgreen.setLayout(new BoxLayout(rightgreen, BoxLayout.Y_AXIS));
 	    contentPane.add(rightgreen, BorderLayout.EAST);
-	    rightgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
+	    rightgreen.setBorder(BorderFactory.createEmptyBorder(0, 50, 50, 60));
 	    rightgreen.setBackground(bg);
+	    
+	   
+	    
+	    JLabel[] white_pieces = new JLabel[16];
+	    ImageIcon piece = new ImageIcon("Chesspieces/queen_black.png");
+	    Image image = piece.getImage();
+        Image scaledImage = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+       
+        JLabel black_text = new JLabel("White Pieces Taken");
+      
+	    black_text.setForeground(Color.WHITE);
+	    black_text.setBorder(BorderFactory.createEmptyBorder(0,0,10,60));
+	    rightgreen.add(black_text);
+        
+	    JPanel black_panel = new JPanel();
+	
+	    
+	    
+	    black_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
+	    black_panel.setLayout(new GridLayout(4, 4));
+	   // Dimension panelSize = new Dimension(150, 200);
+	    black_panel.setBackground(Tile.dark_tile);
+	  //  black_panel.setPreferredSize(panelSize);
+	    for (int i = 0;i<16;i++) {
+	    	white_pieces[i] = new JLabel("");
+	    	//white_pieces[i].setIcon(new ImageIcon(scaledImage));
+	    	white_pieces[i].setBackground(Tile.dark_tile);
+	    	white_pieces[i].setPreferredSize(new Dimension(30, 30));
+	    	black_panel.add(white_pieces[i]);
+	    }
+	    white_pieces[5].setIcon(null);
+	    rightgreen.add(black_panel);
+	    
+	    
+	    
+	    //Empty panel
+	    
+	    JPanel empty = new JPanel();
+	    empty.setBorder(BorderFactory.createEmptyBorder(60, 0, 40, 0) );
+	    empty.setBackground(bg);
+	    rightgreen.add(empty);
+	    
+	    JLabel white_text = new JLabel("Black Pieces Taken");
+	    
+	    white_text.setForeground(Color.WHITE);
+	    white_text.setBorder(BorderFactory.createEmptyBorder(0,0,10,60));
+	    rightgreen.add(white_text);
+	    JLabel[] black_pieces = new JLabel[16];
+	    
+	    
+	    //TitledBorder black_pieces_border = BorderFactory.createTitledBorder("Black Pieces Taken");
+	    //black_pieces_border.setTitleColor(Color.WHITE);
+	    JPanel white_panel = new JPanel();
+	    
+	    white_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+	    white_panel.setLayout(new GridLayout(4, 4));
+	   // Dimension panelSize = new Dimension(150, 200);
+	    white_panel.setBackground(Tile.light_tile);
+	  //  black_panel.setPreferredSize(panelSize);
+	    for (int i = 0;i<16;i++) {
+	    	black_pieces[i] = new JLabel("");
+	    	//black_pieces[i].setIcon(new ImageIcon(scaledImage));
+	    	black_pieces[i].setBackground(Tile.light_tile);
+	    	black_pieces[i].setPreferredSize(new Dimension(30, 30));
+	    	white_panel.add(black_pieces[i]);
+	    }
+	    black_pieces[5].setIcon(null);
+	    rightgreen.add(white_panel);
+	    
+	   
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    
 	    JPanel topgreen = new JPanel(new BorderLayout());
 	    contentPane.add(topgreen, BorderLayout.NORTH);
-	    topgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
+	    topgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, 385));
 	    topgreen.setBackground(bg);
 	    whos_turn_top = new JLabel("It is Black's turn", JLabel.CENTER);
+	   
+	    
+	    JButton menu = new JButton();
+	    ImageIcon menu_icon = new ImageIcon("list.png");
+	    Image mimage = menu_icon.getImage();
+        Image scaledImagemenu = mimage.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        
+	    menu.setIcon(new ImageIcon(scaledImagemenu));
+	    menu.setBackground(bg);
+	  //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		menu.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+	    topgreen.add(menu, BorderLayout.WEST);
+	    
+	    
+	    
 	    
         whos_turn_top.setForeground(bg);
         topgreen.add(whos_turn_top, BorderLayout.CENTER);
 	    
+  
+        
+        
+        
+        
+        
         labelPanel = new JPanel(new BorderLayout());
         contentPane.add(labelPanel, BorderLayout.SOUTH);
         
         whos_turn_bottom = new JLabel("It is White's turn", JLabel.CENTER);
-//        JLabel white_score = new JLabel("Score:2", JLabel.CENTER);
-//        white_score.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
-//        white_score.setForeground(Color.WHITE);
+        
+
         labelPanel.setBackground(bg);
         
-        whos_turn_bottom.setBorder(BorderFactory.createEmptyBorder(size, size,size, size));
+        whos_turn_bottom.setBorder(BorderFactory.createEmptyBorder(size, size,size, 320));
         whos_turn_bottom.setForeground(Color.WHITE);
         labelPanel.add(whos_turn_bottom, BorderLayout.CENTER);
 //        labelPanel.add(white_score, BorderLayout.EAST);
         
-        this.DisplayScore();
+        DisplayTurn();
 	    
        
 	        
@@ -245,7 +364,7 @@ class maingame {
 		}
 		gui.setVisible(true);
 	}
-	public static void DisplayScore() {
+	public static void DisplayTurn() {
 		
 		if (is_whites_turn) {
 			whos_turn_top.setForeground(bg);

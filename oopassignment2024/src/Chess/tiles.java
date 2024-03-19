@@ -27,7 +27,7 @@ class Tile {
 	boolean is_moveable = false;
 	private boolean is_selected = false;
 	boolean is_killable = false;
-	static Color  dark_tile   = new Color(139,69,19);
+	static Color  dark_tile   = new Color(119,78,36);
 	static Color light_tile = new Color(245,222,179);
 	static Color highlighted_tile = new Color(255,255,0);
 	static Color kill_tile = new Color(255,0,0);
@@ -122,9 +122,7 @@ class Tile {
 	public void selectTile() {
 		Buttontile.clearTiles();
 		is_selected = false;
-		Color wheat = new Color(245,222,179);
-		Color yellow = new Color(255,255,0);
-		Color  brown   = new Color(139,69,19);
+		
 
 		selected_piece = current_piece;
 
@@ -136,14 +134,14 @@ class Tile {
 			if (is_yellow && !last_color)
 			{
 
-				last_button.setBackground(brown);
+				last_button.setBackground(dark_tile);
 			}
 			else if (is_yellow && last_color)
 			{
 
-				last_button.setBackground(wheat);
+				last_button.setBackground(light_tile);
 			}
-			tile_button.setBackground(yellow);
+			tile_button.setBackground(highlighted_tile);
 
 			last_color = is_light_tile;
 

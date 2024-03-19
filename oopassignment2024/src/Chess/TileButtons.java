@@ -19,9 +19,9 @@ class Buttontile implements ActionListener{
 	private Piece selected_piece;
 	//static Tile selected_tile;
 	public static JButton last_button = null;
-	Color wheat = new Color(245,222,179);
-	Color yellow = new Color(255,255,0);
-	Color  brown   = new Color(139,69,19);
+	Color light_tile = new Color(245,222,179);
+	Color highlighted_tile = new Color(255,255,0);
+	Color  dark_tile   = new Color(119,78,36);
 	private static boolean last_color;
 	private boolean is_light_tile;
 	static boolean is_moveable;

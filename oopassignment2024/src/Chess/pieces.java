@@ -192,7 +192,7 @@ class Piece {
 				System.out.println("It is now Whites turn");
 			}
 			maingame.is_whites_turn = !maingame.is_whites_turn;
-			maingame.DisplayScore();
+			maingame.DisplayTurn();
 			try {
 				if (new_tile.has_piece)
 					
@@ -309,7 +309,7 @@ class Piece {
 	public void selectKnight(int left,int top) {
 		int knight_left[] = {1,-1,-2,-2,-1,1,2,2};
 		int knight_top[] = {-2,-2,-1,1,2,2,1,-1};
-		System.out.println("Hellooooo");
+		
 		if ((is_white) && (maingame.is_whites_turn)) {
 
 				for(int i = 0;i<8;i++) {
