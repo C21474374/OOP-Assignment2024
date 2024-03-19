@@ -1,10 +1,10 @@
 package Chess;
 
 public class Control {
-
+	static maingame game = new maingame();
 	public static void main(String[] args) {
-		maingame game = new maingame();
-		game.start2player();
+		
+		game.mainmenu();
 
 	}
 

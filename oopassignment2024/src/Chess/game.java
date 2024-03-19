@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -35,34 +34,76 @@ class maingame {
 	static JLabel whos_turn_top;
 	static Color bg= new Color(94,61,28);
 	static Color board_border = new Color(0,0,0);
+	JFrame gui = new JFrame();
+	JPanel board;
+	Container contentPane;
+	JPanel left_screen;
 	
-
-
-	public void start2player(){
+	
+	public void mainmenu() {
+	
 		
+		gui.setTitle("2 Player Game");
+		gui.setResizable(false);
+		gui.setSize(500,500);
+		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		contentPane = gui.getContentPane();
+		contentPane.setLayout(new BorderLayout()); 
+		contentPane.setBackground(bg);
+        
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(bg);
+        JButton two_player = new JButton("Select 2 player mode");
+        Menuevt twoplay = new Menuevt(two_player,"two_player");
+        two_player.addActionListener(twoplay);
+        two_player.setMaximumSize(new Dimension(100, 50));
+        two_player.setForeground(Color.WHITE);
+        two_player.setBackground(Tile.light_tile);
+        two_player.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		two_player.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+        buttonPanel.add(two_player,BorderLayout.CENTER);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+        contentPane.add(buttonPanel, BorderLayout.CENTER);
+        
+        gui.setVisible(true);
+	}
+	public void clearscreen() {
+//		https://stackoverflow.com/questions/16869812/how-to-remove-all-children-components-of-a-container
+		contentPane.removeAll();
+	    contentPane.revalidate();
+	    contentPane.repaint();
+		
+	}
+	public void start2player(){
+	
 		
 		is_whites_turn = true;
-		JFrame gui = new JFrame();
-		JPanel text = new JPanel();
-		gui.setTitle("Chess");
+		
+		
+		gui.setTitle("2 Player Game");
 		gui.setResizable(false);
 		gui.setSize(850,650);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		int size = 30;
-		Container contentPane = gui.getContentPane();
+		contentPane = gui.getContentPane();
 	        contentPane.setLayout(new BorderLayout());
 	
 	    
-	    JPanel board = new JPanel(new GridLayout(8, 8));
+	    board = new JPanel(new GridLayout(8, 8));
 	    board.setBackground(board_border);
 	    board.setBorder(BorderFactory.createLineBorder(board_border ,5));
 	    contentPane.add(board, BorderLayout.CENTER);
 	    
 	    
-	    JPanel leftgreen = new JPanel(new BorderLayout());
-	    contentPane.add(leftgreen, BorderLayout.WEST);
-	    leftgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
-	    leftgreen.setBackground(bg);
+	    left_screen = new JPanel(new BorderLayout());
+	    contentPane.add(left_screen, BorderLayout.WEST);
+	    left_screen.setBorder(BorderFactory.createEmptyBorder(size, size, size, size));
+	    left_screen.setBackground(bg);
 	    
 	    
 	    
@@ -165,9 +206,11 @@ class maingame {
 	    ImageIcon menu_icon = new ImageIcon("list.png");
 	    Image mimage = menu_icon.getImage();
         Image scaledImagemenu = mimage.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        
+        menu.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
 	    menu.setIcon(new ImageIcon(scaledImagemenu));
 	    menu.setBackground(bg);
+	    Menuevt menue = new Menuevt(menu,"main_menu");
+	    menu.addActionListener(menue);
 	  //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
         //-i-get-on-a-jbutton-when-it-s-h-8112
 		menu.setUI (new MetalButtonUI () {
