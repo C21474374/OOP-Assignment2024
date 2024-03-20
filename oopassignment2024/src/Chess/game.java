@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -38,12 +42,17 @@ class maingame {
 	JPanel board;
 	Container contentPane;
 	JPanel left_screen;
-	
+	JLabel[] white_pieces;
+	int current_white = 0;
+	JLabel[] black_pieces;
+	int current_black = 0;
+	static boolean highlight_mode = true;
+	static String highlight_option = "On";
 	
 	public void mainmenu() {
 	
 		
-		gui.setTitle("2 Player Game");
+		gui.setTitle("Main Menu");
 		gui.setResizable(false);
 		gui.setSize(500,500);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,14 +60,31 @@ class maingame {
 		contentPane.setLayout(new BorderLayout()); 
 		contentPane.setBackground(bg);
         
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(bg);
-        JButton two_player = new JButton("Select 2 player mode");
+		//https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagConstraints.html
+		JPanel menuPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10); 
+        menuPanel.setBackground(bg);
+        
+        JLabel chess_title = new JLabel("Java Chess");
+        chess_title.setForeground(Color.WHITE);
+        Font titleFont = new Font("Arial", Font.PLAIN, 60);
+        chess_title.setFont(titleFont);
+        menuPanel.add(chess_title, gbc);
+        gbc.gridy++;
+       
+        
+        
+        Font buttonFont = new Font("Arial", Font.PLAIN, 20);
+        JButton two_player = new JButton("Start 2 Player Mode");
         Menuevt twoplay = new Menuevt(two_player,"two_player");
         two_player.addActionListener(twoplay);
-        two_player.setMaximumSize(new Dimension(100, 50));
+        //two_player.setMaximumSize(new Dimension(100, 50));
         two_player.setForeground(Color.WHITE);
-        two_player.setBackground(Tile.light_tile);
+        two_player.setFont(buttonFont);
+        two_player.setBackground(Tile.dark_tile);
         two_player.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
       //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
         //-i-get-on-a-jbutton-when-it-s-h-8112
@@ -66,9 +92,48 @@ class maingame {
             @Override
 			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
         });
-        buttonPanel.add(two_player,BorderLayout.CENTER);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
-        contentPane.add(buttonPanel, BorderLayout.CENTER);
+		menuPanel.add(two_player, gbc);
+        gbc.gridy++;
+        
+        JButton change_theme = new JButton("Change Theme");
+        Menuevt theme = new Menuevt(change_theme,"change_theme");
+        change_theme.addActionListener(theme);
+        //two_player.setMaximumSize(new Dimension(100, 50));
+        change_theme.setForeground(Color.WHITE);
+        change_theme.setFont(buttonFont);
+        change_theme.setBackground(Tile.dark_tile);
+        change_theme.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+        change_theme.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+		menuPanel.add(change_theme, gbc);
+        gbc.gridy++;
+		
+		
+		JButton options = new JButton("Options");
+        Menuevt optionevt = new Menuevt(options,"options");
+        options.addActionListener(optionevt);
+      //  options.setMaximumSize(new Dimension(100, 50));
+        options.setForeground(Color.WHITE);
+        options.setFont(buttonFont);
+        
+        options.setBackground(Tile.dark_tile);
+        options.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+        options.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+       
+        
+        menuPanel.add(options, gbc);
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+        
+        contentPane.add(menuPanel, BorderLayout.CENTER);
         
         gui.setVisible(true);
 	}
@@ -77,11 +142,12 @@ class maingame {
 		contentPane.removeAll();
 	    contentPane.revalidate();
 	    contentPane.repaint();
-		
+	
 	}
 	public void start2player(){
 	
-		
+		current_black = 0;
+		current_white = 0;
 		is_whites_turn = true;
 		
 		
@@ -117,7 +183,7 @@ class maingame {
 	    
 	   
 	    
-	    JLabel[] white_pieces = new JLabel[16];
+	    white_pieces = new JLabel[16];
 	    ImageIcon piece = new ImageIcon("Chesspieces/queen_black.png");
 	    Image image = piece.getImage();
         Image scaledImage = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
@@ -161,7 +227,7 @@ class maingame {
 	    white_text.setForeground(Color.WHITE);
 	    white_text.setBorder(BorderFactory.createEmptyBorder(0,0,10,60));
 	    rightgreen.add(white_text);
-	    JLabel[] black_pieces = new JLabel[16];
+	    black_pieces = new JLabel[16];
 	    
 	    
 	    //TitledBorder black_pieces_border = BorderFactory.createTitledBorder("Black Pieces Taken");
@@ -407,6 +473,72 @@ class maingame {
 		}
 		gui.setVisible(true);
 	}
+	
+	
+	public void options() {
+		gui.setTitle("Options");
+		gui.setResizable(false);
+		gui.setSize(500,500);
+		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		contentPane = gui.getContentPane();
+		contentPane.setLayout(new BorderLayout()); 
+		contentPane.setBackground(bg);
+        
+		//https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagConstraints.html
+		JPanel menuPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10); 
+        menuPanel.setBackground(bg);
+        
+        
+        JLabel options_title = new JLabel("Options");
+        options_title.setForeground(Color.WHITE);
+        Font optionsFont = new Font("Arial", Font.PLAIN, 40);
+        options_title.setFont(optionsFont);
+        menuPanel.add(options_title, gbc);
+        gbc.gridy++;
+       
+       
+        Font buttonFont = new Font("Arial", Font.PLAIN, 20);
+        JButton highlights = new JButton("Highlight mode:"+highlight_option);
+        Menuevt highlightevt = new Menuevt(highlights,"highlight");
+        highlights.addActionListener(highlightevt);
+        //two_player.setMaximumSize(new Dimension(100, 50));
+        highlights.setForeground(Color.WHITE);
+        highlights.setFont(buttonFont);
+        highlights.setBackground(Tile.dark_tile);
+        highlights.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+        highlights.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+		menuPanel.add(highlights, gbc);
+		gbc.gridy++;
+		  
+	        JButton menu = new JButton("Back");
+	        Menuevt menuevt = new Menuevt(menu,"main_menu");
+	        menu.addActionListener(menuevt);
+	        //two_player.setMaximumSize(new Dimension(100, 50));
+	        menu.setForeground(Color.WHITE);
+	        menu.setFont(buttonFont);
+	        menu.setBackground(Tile.dark_tile);
+	        menu.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+	      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+	        //-i-get-on-a-jbutton-when-it-s-h-8112
+	        menu.setUI (new MetalButtonUI () {
+	            @Override
+				protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+	        });
+			menuPanel.add(menu, gbc);
+			contentPane.add(menuPanel, BorderLayout.CENTER);
+	        
+	        gui.setVisible(true);
+        
+	}
 	public static void DisplayTurn() {
 		
 		if (is_whites_turn) {
@@ -416,7 +548,78 @@ class maingame {
 	    	whos_turn_top.setForeground(Color.WHITE);
 	        whos_turn_bottom.setForeground(bg);
 	    }
-	}
+	}// end display turn
+	public void takePiece(String piece_type,boolean is_white) {
+			ImageIcon selected_icon = null;
+			System.out.println(piece_type);
+			System.out.println("is white:"+is_white);
+			if (is_white) {
+				if (piece_type == "Pawn") {
+					selected_icon = Piece.pawn_white;
+				}
+				else if(piece_type == "Bishop") {
+					selected_icon = Piece.bishop_white;
+				}
+				else if(piece_type == "Rook") {
+					selected_icon = Piece.rook_white;
+				}
+				else if(piece_type == "Knight") {
+					selected_icon = Piece.knight_white;
+				}
+				else if(piece_type == "Queen") {
+					selected_icon = Piece.queen_white;
+				}
+				else if(piece_type == "King") {
+					selected_icon = Piece.king_white;
+				}
+				try {
+					ImageIcon piece = selected_icon;
+					 Image image = piece.getImage();
+				     Image scaledImage = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+				     white_pieces[current_white].setIcon(new ImageIcon(scaledImage));
+				     current_white++;
+				}
+				catch(Exception e) {
+					
+				}
+				
+			}// end if white
+			
+			else if(!is_white) {
+				if (piece_type == "Pawn") {
+					selected_icon = Piece.pawn_black;
+				}
+				else if(piece_type == "Bishop") {
+					selected_icon = Piece.bishop_black;
+				}
+				else if(piece_type == "Rook") {
+					selected_icon = Piece.rook_black;
+				}
+				else if(piece_type == "Knight") {
+					selected_icon = Piece.knight_black;
+				}
+				else if(piece_type == "Queen") {
+					selected_icon = Piece.queen_black;
+				}
+				else if(piece_type == "King") {
+					selected_icon = Piece.king_black;
+				}
+				try {
+					ImageIcon piece = selected_icon;
+					 Image image = piece.getImage();
+				     Image scaledImage = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+				     black_pieces[current_black].setIcon(new ImageIcon(scaledImage));
+				     current_black++;
+				}
+				catch(Exception e) {
+					
+				}
+				
+			     
+			}//end if black
+			
+		     
+	}//end takePiece
 }
 
 

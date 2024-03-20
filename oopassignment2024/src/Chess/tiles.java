@@ -195,20 +195,20 @@ class Tile {
 		is_moveable = false;
 		is_selected = true;
 		is_killable = true;
-		if (this.has_piece) {
+		if ((this.has_piece) && (maingame.highlight_mode)) {
 			tile_button.setBackground(kill_tile);
 		}
 		if (Buttontile.killable_tiles == null) {
 			Buttontile.killable_tiles = new Tile[1];
 			Buttontile.killable_tiles[0] = this;
         } else {
-            // Create a new array with increased size to accommodate the new tile
+           
             Tile[] newkillable_tiles = new Tile[Buttontile.killable_tiles.length + 1];
-            // Copy existing tiles to the new array
+          
             System.arraycopy(Buttontile.killable_tiles, 0, newkillable_tiles, 0, Buttontile.killable_tiles.length);
-            // Add the new tile to the end of the new array
+          
             newkillable_tiles[newkillable_tiles.length - 1] = this;
-            // Update the moveable_tiles reference to point to the new array
+           
             Buttontile.killable_tiles = newkillable_tiles;
         }
 	}
@@ -220,17 +220,17 @@ class Tile {
 			Buttontile.moveable_tiles = new Tile[1];
 			Buttontile.moveable_tiles[0] = this;
         } else {
-            // Create a new array with increased size to accommodate the new tile
+           
             Tile[] newMoveableTiles = new Tile[Buttontile.moveable_tiles.length + 1];
-            // Copy existing tiles to the new array
+         
             System.arraycopy(Buttontile.moveable_tiles, 0, newMoveableTiles, 0, Buttontile.moveable_tiles.length);
-            // Add the new tile to the end of the new array
+      
             newMoveableTiles[newMoveableTiles.length - 1] = this;
-            // Update the moveable_tiles reference to point to the new array
+            
             Buttontile.moveable_tiles = newMoveableTiles;
         }
 		System.out.println("Position "+left+","+top+" is moveable");
-		if (!has_piece) {
+		if ((!has_piece) & (maingame.highlight_mode)) {
 			tile_button.setBackground(highlighted_tile);
 		}
 		else if (has_piece) {
@@ -245,7 +245,7 @@ class Tile {
 		 Buttontile.killable_tiles = null;
 	    }
 	public void placePiece(ImageIcon piece,String piece_Type) {
-		piece_type = piece_Type;
+		this.piece_type = piece_Type;
 		Image image = piece.getImage();
         Image scaledImage = image.getScaledInstance(40,40, Image.SCALE_SMOOTH);
         tile_button.setIcon(new ImageIcon(scaledImage));

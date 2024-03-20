@@ -67,8 +67,8 @@ class Buttontile implements ActionListener{
 			}
 			if (current_tile.is_killable) {
 				System.out.println("Piece taken1");
-
-
+				System.out.println("tile type:"+current_tile.piece_type);
+				
 				Tile.selected_piece.movePiece(current_tile);
 				clearTiles();
 

@@ -14,18 +14,18 @@ interface PieceControl
 class Piece {
 
 
-	ImageIcon queen_black = new ImageIcon("Chesspieces/queen_black.png");
-	ImageIcon king_black = new ImageIcon("Chesspieces/king_black.png");
-	ImageIcon bishop_black = new ImageIcon("Chesspieces/bishop_black.png");
-	ImageIcon knight_black = new ImageIcon("Chesspieces/knight_black.png");
-	ImageIcon rook_black = new ImageIcon("Chesspieces/rook_black.png");
-	ImageIcon pawn_black = new ImageIcon("Chesspieces/pawn_black.png");
-	ImageIcon queen_white = new ImageIcon("Chesspieces/queen_white.png");
-	ImageIcon king_white = new ImageIcon("Chesspieces/king_white.png");
-	ImageIcon bishop_white = new ImageIcon("Chesspieces/bishop_white.png");
-	ImageIcon knight_white = new ImageIcon("Chesspieces/knight_white.png");
-	ImageIcon rook_white = new ImageIcon("Chesspieces/rook_white.png");
-	ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
+	static ImageIcon queen_black = new ImageIcon("Chesspieces/queen_black.png");
+	static ImageIcon king_black = new ImageIcon("Chesspieces/king_black.png");
+	static ImageIcon bishop_black = new ImageIcon("Chesspieces/bishop_black.png");
+	static ImageIcon knight_black = new ImageIcon("Chesspieces/knight_black.png");
+	static ImageIcon rook_black = new ImageIcon("Chesspieces/rook_black.png");
+	static ImageIcon pawn_black = new ImageIcon("Chesspieces/pawn_black.png");
+	static ImageIcon queen_white = new ImageIcon("Chesspieces/queen_white.png");
+	static ImageIcon king_white = new ImageIcon("Chesspieces/king_white.png");
+	static ImageIcon bishop_white = new ImageIcon("Chesspieces/bishop_white.png");
+	static ImageIcon knight_white = new ImageIcon("Chesspieces/knight_white.png");
+	static ImageIcon rook_white = new ImageIcon("Chesspieces/rook_white.png");
+	static ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
 
 	static boolean has_moved = false;
 	private boolean pawn_moved = false;
@@ -128,11 +128,14 @@ class Piece {
 				
 			
 			current_tile.has_piece = false;
+			if(new_tile.has_piece) {
+				Control.game.takePiece(new_tile.piece_type, new_tile.current_piece.is_white);
+			}
 			
 			new_tile.deselectTile();
 			
 		
-			System.out.println("hello world!");
+		
 			
 			if(piece_type == "Knight") {
 				if (is_white) {
@@ -207,6 +210,8 @@ class Piece {
 						
 						// Alert box that displays message variable
 						JOptionPane.showMessageDialog(frame, message);
+						Control.game.clearscreen();
+						Control.game.mainmenu();
 					}
 					else if ((!new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
 						message = "White wins!";
@@ -217,20 +222,24 @@ class Piece {
 						
 						// Alert box that displays message variable
 						JOptionPane.showMessageDialog(frame, message);
+						Control.game.clearscreen();
+						Control.game.mainmenu();
 					}
+					
 					
 				}
 			}
 			catch(Exception e) {
 				
 			}
-			
+			current_tile.current_piece = null;
 			new_tile.current_piece = this;
 			current_tile = new_tile;
 			
 			new_tile.has_piece = true;
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
+			new_tile.piece_type = this.piece_type;
 			
 
 	}
@@ -354,29 +363,27 @@ class Piece {
 
 	public void selectRook(int left,int top) {
 
-		System.out.println("Hellooooo");
-		System.out.println("is_white="+is_white);
+	
 		if ((is_white) && (maingame.is_whites_turn)) {
 
-				for(int i = 1;i<8;i++) {
-					try {
-						if(!maingame.position[left+i][top].has_piece) {
-							maingame.position[left+i][top].moveableTile();
-							if((maingame.position[left+i][top].has_piece) && (!maingame.position[left+i][top].current_piece.is_white) ){
-								maingame.position[left+i][top].killTile();
-								i = 8;
-							}
-							if ((maingame.position[left+i][top].has_piece) && (maingame.position[left+i][top].current_piece.is_white)) {
-								i = 8;
-							}
-						}
+			for(int i = 1;i<8;i++) {
+				try {
+					if(!maingame.position[left+i][top].has_piece) {
+						maingame.position[left+i][top].moveableTile();
 
 					}
-					catch(Exception e) {
-
+					else if((maingame.position[left+i][top].has_piece) && (!maingame.position[left+i][top].current_piece.is_white) ){
+						maingame.position[left+i][top].killTile();
+						i = 8;
 					}
+					else if ((maingame.position[left+i][top].has_piece) && (maingame.position[left+i][top].current_piece.is_white)) {
+						i = 8;
+					}
+				}
+				catch(Exception e) {
 
 				}
+			}
 				for(int i = 1;i<8;i++) {
 					try {
 						if(!maingame.position[left-i][top].has_piece) {

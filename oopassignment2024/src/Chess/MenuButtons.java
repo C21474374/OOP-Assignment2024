@@ -35,6 +35,22 @@ class Menuevt implements ActionListener{
 			Control.game.clearscreen();
 			Control.game.mainmenu();
 		}
+		else if(menu_type == "options") {
+			Control.game.clearscreen();
+			Control.game.options();
+		}
+		else if(menu_type == "highlight") {
+			if (maingame.highlight_mode == true) {
+				maingame.highlight_option = "Off";
+				current_btn.setText("Highlight mode:"+maingame.highlight_option);
+				maingame.highlight_mode = false;
+			}
+			else if(maingame.highlight_mode == false) {
+				maingame.highlight_option = "On";
+				current_btn.setText("Highlight mode:"+maingame.highlight_option);
+				maingame.highlight_mode = true;
+			}
+		}
 		
 	
 	
