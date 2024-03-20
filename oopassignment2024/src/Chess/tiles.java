@@ -141,7 +141,10 @@ class Tile {
 
 				last_button.setBackground(light_tile);
 			}
-			tile_button.setBackground(highlighted_tile);
+			if (maingame.highlight_mode) {
+				tile_button.setBackground(highlighted_tile);
+			}
+			
 
 			last_color = is_light_tile;
 

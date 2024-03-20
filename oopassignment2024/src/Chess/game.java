@@ -37,7 +37,8 @@ class maingame {
 	static JLabel whos_turn_bottom;
 	static JLabel whos_turn_top;
 	static Color bg= new Color(94,61,28);
-	static Color board_border = new Color(0,0,0);
+	static Color textcl = new Color(255,255,255);
+	static Color bd = new Color(0,0,0);
 	JFrame gui = new JFrame();
 	JPanel board;
 	Container contentPane;
@@ -69,7 +70,7 @@ class maingame {
         menuPanel.setBackground(bg);
         
         JLabel chess_title = new JLabel("Java Chess");
-        chess_title.setForeground(Color.WHITE);
+        chess_title.setForeground(textcl);
         Font titleFont = new Font("Arial", Font.PLAIN, 60);
         chess_title.setFont(titleFont);
         menuPanel.add(chess_title, gbc);
@@ -82,7 +83,7 @@ class maingame {
         Menuevt twoplay = new Menuevt(two_player,"two_player");
         two_player.addActionListener(twoplay);
         //two_player.setMaximumSize(new Dimension(100, 50));
-        two_player.setForeground(Color.WHITE);
+        two_player.setForeground(textcl);
         two_player.setFont(buttonFont);
         two_player.setBackground(Tile.dark_tile);
         two_player.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -99,7 +100,7 @@ class maingame {
         Menuevt theme = new Menuevt(change_theme,"change_theme");
         change_theme.addActionListener(theme);
         //two_player.setMaximumSize(new Dimension(100, 50));
-        change_theme.setForeground(Color.WHITE);
+        change_theme.setForeground(textcl);
         change_theme.setFont(buttonFont);
         change_theme.setBackground(Tile.dark_tile);
         change_theme.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -117,7 +118,7 @@ class maingame {
         Menuevt optionevt = new Menuevt(options,"options");
         options.addActionListener(optionevt);
       //  options.setMaximumSize(new Dimension(100, 50));
-        options.setForeground(Color.WHITE);
+        options.setForeground(textcl);
         options.setFont(buttonFont);
         
         options.setBackground(Tile.dark_tile);
@@ -161,8 +162,8 @@ class maingame {
 	
 	    
 	    board = new JPanel(new GridLayout(8, 8));
-	    board.setBackground(board_border);
-	    board.setBorder(BorderFactory.createLineBorder(board_border ,5));
+	    board.setBackground(bd);
+	    board.setBorder(BorderFactory.createLineBorder(bd ,5));
 	    contentPane.add(board, BorderLayout.CENTER);
 	    
 	    
@@ -190,7 +191,7 @@ class maingame {
        
         JLabel black_text = new JLabel("White Pieces Taken");
       
-	    black_text.setForeground(Color.WHITE);
+	    black_text.setForeground(textcl);
 	    black_text.setBorder(BorderFactory.createEmptyBorder(0,0,10,60));
 	    rightgreen.add(black_text);
         
@@ -198,7 +199,7 @@ class maingame {
 	
 	    
 	    
-	    black_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
+	    black_panel.setBorder(BorderFactory.createLineBorder(bd,5));
 	    black_panel.setLayout(new GridLayout(4, 4));
 	   // Dimension panelSize = new Dimension(150, 200);
 	    black_panel.setBackground(Tile.dark_tile);
@@ -224,7 +225,7 @@ class maingame {
 	    
 	    JLabel white_text = new JLabel("Black Pieces Taken");
 	    
-	    white_text.setForeground(Color.WHITE);
+	    white_text.setForeground(textcl);
 	    white_text.setBorder(BorderFactory.createEmptyBorder(0,0,10,60));
 	    rightgreen.add(white_text);
 	    black_pieces = new JLabel[16];
@@ -234,7 +235,7 @@ class maingame {
 	    //black_pieces_border.setTitleColor(Color.WHITE);
 	    JPanel white_panel = new JPanel();
 	    
-	    white_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+	    white_panel.setBorder(BorderFactory.createLineBorder(bd, 5));
 	    white_panel.setLayout(new GridLayout(4, 4));
 	   // Dimension panelSize = new Dimension(150, 200);
 	    white_panel.setBackground(Tile.light_tile);
@@ -272,7 +273,7 @@ class maingame {
 	    ImageIcon menu_icon = new ImageIcon("list.png");
 	    Image mimage = menu_icon.getImage();
         Image scaledImagemenu = mimage.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        menu.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
+        menu.setBorder(BorderFactory.createLineBorder(bd,5));
 	    menu.setIcon(new ImageIcon(scaledImagemenu));
 	    menu.setBackground(bg);
 	    Menuevt menue = new Menuevt(menu,"main_menu");
@@ -306,7 +307,7 @@ class maingame {
         labelPanel.setBackground(bg);
         
         whos_turn_bottom.setBorder(BorderFactory.createEmptyBorder(size, size,size, 320));
-        whos_turn_bottom.setForeground(Color.WHITE);
+        whos_turn_bottom.setForeground(textcl);
         labelPanel.add(whos_turn_bottom, BorderLayout.CENTER);
 //        labelPanel.add(white_score, BorderLayout.EAST);
         
@@ -494,7 +495,7 @@ class maingame {
         
         
         JLabel options_title = new JLabel("Options");
-        options_title.setForeground(Color.WHITE);
+        options_title.setForeground(textcl);
         Font optionsFont = new Font("Arial", Font.PLAIN, 40);
         options_title.setFont(optionsFont);
         menuPanel.add(options_title, gbc);
@@ -506,7 +507,7 @@ class maingame {
         Menuevt highlightevt = new Menuevt(highlights,"highlight");
         highlights.addActionListener(highlightevt);
         //two_player.setMaximumSize(new Dimension(100, 50));
-        highlights.setForeground(Color.WHITE);
+        highlights.setForeground(textcl);
         highlights.setFont(buttonFont);
         highlights.setBackground(Tile.dark_tile);
         highlights.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -523,7 +524,7 @@ class maingame {
 	        Menuevt menuevt = new Menuevt(menu,"main_menu");
 	        menu.addActionListener(menuevt);
 	        //two_player.setMaximumSize(new Dimension(100, 50));
-	        menu.setForeground(Color.WHITE);
+	        menu.setForeground(textcl);
 	        menu.setFont(buttonFont);
 	        menu.setBackground(Tile.dark_tile);
 	        menu.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -543,9 +544,9 @@ class maingame {
 		
 		if (is_whites_turn) {
 			whos_turn_top.setForeground(bg);
-	        whos_turn_bottom.setForeground(Color.WHITE);
+	        whos_turn_bottom.setForeground(textcl);
 	    } else {
-	    	whos_turn_top.setForeground(Color.WHITE);
+	    	whos_turn_top.setForeground(textcl);
 	        whos_turn_bottom.setForeground(bg);
 	    }
 	}// end display turn
