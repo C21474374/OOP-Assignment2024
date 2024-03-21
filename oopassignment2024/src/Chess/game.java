@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -49,7 +50,8 @@ class maingame {
 	int current_black = 0;
 	static boolean highlight_mode = true;
 	static String highlight_option = "On";
-	
+	static JLabel board_image;
+	static JLabel board_name;
 	public void mainmenu() {
 	
 		
@@ -57,6 +59,8 @@ class maingame {
 		gui.setResizable(false);
 		gui.setSize(500,500);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
+		gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
 		contentPane = gui.getContentPane();
 		contentPane.setLayout(new BorderLayout()); 
 		contentPane.setBackground(bg);
@@ -97,7 +101,7 @@ class maingame {
         gbc.gridy++;
         
         JButton change_theme = new JButton("Change Theme");
-        Menuevt theme = new Menuevt(change_theme,"change_theme");
+        Menuevt theme = new Menuevt(change_theme,"themes");
         change_theme.addActionListener(theme);
         //two_player.setMaximumSize(new Dimension(100, 50));
         change_theme.setForeground(textcl);
@@ -145,6 +149,7 @@ class maingame {
 	    contentPane.repaint();
 	
 	}
+	
 	public void start2player(){
 	
 		current_black = 0;
@@ -155,6 +160,8 @@ class maingame {
 		gui.setTitle("2 Player Game");
 		gui.setResizable(false);
 		gui.setSize(850,650);
+		//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
+		gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		int size = 30;
 		contentPane = gui.getContentPane();
@@ -480,6 +487,8 @@ class maingame {
 		gui.setTitle("Options");
 		gui.setResizable(false);
 		gui.setSize(500,500);
+		//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
+		gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		contentPane = gui.getContentPane();
 		contentPane.setLayout(new BorderLayout()); 
@@ -539,6 +548,112 @@ class maingame {
 	        
 	        gui.setVisible(true);
         
+	}//end options
+	
+	public void changeTheme() {
+		gui.setTitle("Themes");
+		gui.setResizable(false);
+		gui.setSize(700,500);
+		//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
+		gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
+		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		contentPane = gui.getContentPane();
+		contentPane.setLayout(new BorderLayout()); 
+		contentPane.setBackground(bg);
+		
+		JPanel top = new JPanel(new BorderLayout());
+		top.setBackground(bg);
+		JButton menu = new JButton();
+	    ImageIcon menu_icon = new ImageIcon("list.png");
+	    Image mimage = menu_icon.getImage();
+        Image scaledImagemenu = mimage.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        menu.setBorder(BorderFactory.createLineBorder(bd,5));
+	    menu.setIcon(new ImageIcon(scaledImagemenu));
+	    menu.setBackground(bg);
+	    Menuevt menue = new Menuevt(menu,"main_menu");
+	    menu.addActionListener(menue);
+	  //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		menu.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+		top.add(menu,BorderLayout.WEST);
+		
+		board_name = new JLabel(Theme.board_names[Theme.board_index]);
+		
+		Font board_name_Font = new Font("Arial", Font.PLAIN, 20);
+		board_name.setFont(board_name_Font);
+		board_name.setForeground(textcl);
+		board_name.setBorder(BorderFactory.createEmptyBorder(30,280,0,0));
+		top.add(board_name, BorderLayout.CENTER);
+		
+		contentPane.add(top,BorderLayout.NORTH);
+		
+		
+		board_image = new JLabel();
+		Image image = Theme.theme_images[Theme.board_index].getImage();
+	    Image scaledImage = image.getScaledInstance(300,300, Image.SCALE_SMOOTH);
+	    board_image.setIcon(new ImageIcon(scaledImage));
+	    board_image.setBorder(BorderFactory.createEmptyBorder(0,194,0,0));
+	    contentPane.add(board_image,BorderLayout.CENTER);
+	    
+		JPanel bottom = new JPanel(new FlowLayout());
+		bottom.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 5));
+		bottom.setBackground(bg);
+		
+		ImageIcon l_arrow = new ImageIcon("left_arrow.png"); 
+		JButton left_arrow = new JButton();
+		Themeevt leftevt = new Themeevt("left_arrow");
+		left_arrow.addActionListener(leftevt);
+		left_arrow.setBackground(Tile.light_tile);
+		Image leftarrow = l_arrow.getImage();
+	    Image scaledleftarrow = leftarrow.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+	    left_arrow.setIcon(new ImageIcon(scaledleftarrow));
+	  //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		left_arrow.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+	    
+	    
+		JButton select = new JButton("Select This Theme");
+		Themeevt selectevt = new Themeevt("select");
+		select.addActionListener(selectevt);
+		select.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+		select.setBackground(Tile.dark_tile);
+		select.setForeground(textcl);
+		 //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		select.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+		
+		JButton right_arrow = new JButton();
+		Themeevt rightevt = new Themeevt("right_arrow");
+		right_arrow.addActionListener(rightevt);
+		right_arrow.setBackground(Tile.light_tile);
+		ImageIcon r_arrow = new ImageIcon("right_arrow.png"); 
+		Image rightarrow = r_arrow.getImage();
+	    Image scaledrightarrow = rightarrow.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+	    right_arrow.setIcon(new ImageIcon(scaledrightarrow));
+	  //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+        //-i-get-on-a-jbutton-when-it-s-h-8112
+		right_arrow.setUI (new MetalButtonUI () {
+            @Override
+			protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+        });
+	    
+	    
+	    
+		bottom.add(left_arrow);
+		bottom.add(select);
+		bottom.add(right_arrow);
+		contentPane.add(bottom,BorderLayout.SOUTH);
+		
+		gui.setVisible(true);
 	}
 	public static void DisplayTurn() {
 		

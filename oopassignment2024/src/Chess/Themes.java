@@ -2,12 +2,26 @@ package Chess;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
+
 interface ThemeSetter
 {
 	void setTheme();
 	void resetTheme();
 }
 class Theme  {
+	
+//	static ImageIcon[] theme_images = new ImageIcon[6];
+	
+	static ImageIcon default_board = new ImageIcon("Themes/default_board.png");
+	static ImageIcon pink_board = new ImageIcon("Themes/pink_board.png");
+	static ImageIcon blue_board = new ImageIcon("Themes/blue_board.png");
+	static ImageIcon grey_board = new ImageIcon("Themes/grey_board.png");
+	static ImageIcon purple_board = new ImageIcon("Themes/purple_board.png");
+	static ImageIcon magma_board = new ImageIcon("Themes/magma_board.png");
+	static int board_index = 0;
+	static ImageIcon[] theme_images = {default_board,pink_board,blue_board,grey_board,purple_board,magma_board};
+	static String[] board_names = {"Default","Pink","Blue","Grey","Purple","Magma"};
 	
 	Color default_dark =  new Color(119,78,36);
 	Color default_light = new Color(245,222,179);
@@ -26,7 +40,9 @@ class Theme  {
 	Color current_kill_color;
 	
 	 public Theme(Color darkColor, Color lightColor, Color bgColor, Color borderColor, Color textColor, Color highlightColor, Color killColor) {
-	        current_dark_color = darkColor;
+	   
+		 
+		 	current_dark_color = darkColor;
 	        current_light_color = lightColor;
 	        current_bg_color = bgColor;
 	        current_border_color = borderColor;
@@ -184,8 +200,8 @@ class magmaTheme extends Theme implements ThemeSetter {
 	public magmaTheme() {
 		super(new Color(105, 20, 14),//dark_color (blood red)
 			  new Color(238, 205, 170),//light_color (vanilla)
-			  new Color(60, 21, 24),//bg_color (black bean)
-			  new Color(184, 73, 0),//border_color (Mahogany)
+			  new Color(90, 17, 12),//bg_color (black bean)
+			  new Color(60, 21, 24),//border_color (Mahogany)
 			  new Color(255,255,255),//text_color (White)
 			  new Color(213, 137, 54),//highlight_color (Bronze)
 			  new Color(164, 66, 0));//kill color (Brown)
