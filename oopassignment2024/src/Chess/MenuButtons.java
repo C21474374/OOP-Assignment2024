@@ -9,7 +9,7 @@ package Chess;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.JFrame;
 import javax.swing.JButton;
 
 
@@ -27,7 +27,12 @@ class Menuevt implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (menu_type == "two_player") {
+		
+		if(menu_type == "pick_name"){
+			Control.game.clearscreen();
+			Control.game.picknames();
+		}
+		else if(menu_type == "save_name"){
 			Control.game.clearscreen();
 			Control.game.start2player();
 		}

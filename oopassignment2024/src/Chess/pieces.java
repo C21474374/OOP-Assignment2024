@@ -1,5 +1,6 @@
 package Chess;
-
+import javax.swing.*;
+import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -202,7 +203,8 @@ class Piece {
 				{
 					
 					if((new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
-						message = "Black wins!";
+						message = Control.game.black_name+" wins!";
+						Control.game.fileProcessor.updateScore("scores.txt", Control.game.black_name, 1);
 						JFrame frame = new JFrame();
 						frame.setTitle("Win screen");
 						frame.setResizable(false);
@@ -214,7 +216,8 @@ class Piece {
 						Control.game.mainmenu();
 					}
 					else if ((!new_tile.current_piece.is_white) && (new_tile.current_piece.piece_type == "King")) {
-						message = "White wins!";
+						message = Control.game.white_name+" wins!";
+						Control.game.fileProcessor.updateScore("scores.txt", Control.game.white_name, 1);
 						JFrame frame = new JFrame();
 						frame.setTitle("Win screen");
 						frame.setResizable(false);

@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -20,38 +22,53 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.metal.MetalButtonUI;
 
 class maingame {
 
-
-
-	
-	int top[] = new int[8];
-	int left[] = new int[8];
-	static Tile[][] position = new Tile[8][8];
-	boolean is_wheat = true;
+	// Static game settings and state
 	static boolean is_whites_turn;
-	JPanel labelPanel;
+	static boolean highlight_mode = true;
+	static String highlight_option = "On";
+	static String white_name;
+	static String black_name;
+
+	// Static UI components
+	static Tile[][] position = new Tile[8][8];
 	static JLabel whos_turn_bottom;
 	static JLabel whos_turn_top;
-	static Color bg= new Color(94,61,28);
-	static Color textcl = new Color(255,255,255);
-	static Color bd = new Color(0,0,0);
+	static JLabel board_image;
+	static JLabel board_name;
+
+	// Static UI colors
+	static Color bg = new Color(94, 61, 28);
+	static Color textcl = new Color(255, 255, 255);
+	static Color bd = new Color(0, 0, 0);
+
+	// File processing
+	static file fileProcessor = new file();
+
+	// Game board and positioning
+	int[] top = new int[8];
+	int[] left = new int[8];
+	boolean is_wheat = true;
+
+	// UI components for game interaction
 	JFrame gui = new JFrame();
-	JPanel board;
 	Container contentPane;
+	JPanel board;
 	JPanel left_screen;
+	JPanel labelPanel;
+
+	// Game piece tracking
 	JLabel[] white_pieces;
 	int current_white = 0;
 	JLabel[] black_pieces;
 	int current_black = 0;
-	static boolean highlight_mode = true;
-	static String highlight_option = "On";
-	static JLabel board_image;
-	static JLabel board_name;
 	public void mainmenu() {
 	
 		
@@ -60,7 +77,7 @@ class maingame {
 		gui.setSize(500,500);
 		gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
-		gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
+		gui.setLocationRelativeTo(null); // this method displays the JFrame to center position of a screen
 		contentPane = gui.getContentPane();
 		contentPane.setLayout(new BorderLayout()); 
 		contentPane.setBackground(bg);
@@ -84,7 +101,7 @@ class maingame {
         
         Font buttonFont = new Font("Arial", Font.PLAIN, 20);
         JButton two_player = new JButton("Start 2 Player Mode");
-        Menuevt twoplay = new Menuevt(two_player,"two_player");
+        Menuevt twoplay = new Menuevt(two_player,"pick_name");
         two_player.addActionListener(twoplay);
         //two_player.setMaximumSize(new Dimension(100, 50));
         two_player.setForeground(textcl);
@@ -141,7 +158,7 @@ class maingame {
         contentPane.add(menuPanel, BorderLayout.CENTER);
         
         gui.setVisible(true);
-	}
+	}//end main menu
 	public void clearscreen() {
 //		https://stackoverflow.com/questions/16869812/how-to-remove-all-children-components-of-a-container
 		contentPane.removeAll();
@@ -149,7 +166,112 @@ class maingame {
 	    contentPane.repaint();
 	
 	}
+	public void picknames() {
+			
+		
+			
+			gui.setTitle("Enter Names");
+			gui.setResizable(false);
+			gui.setSize(500,500);
+			//https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java#:~:text=By%20default%2C%20a%20JFrame%20can,()%20method%20of%20Window%20class.
+			gui.setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
+			gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			contentPane = gui.getContentPane();
+			contentPane.setLayout(new BorderLayout()); 
+			contentPane.setBackground(bg);
+	        
+			//https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagConstraints.html
+			JPanel menuPanel = new JPanel(new GridBagLayout());
+	        GridBagConstraints gbc = new GridBagConstraints();
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        gbc.insets = new Insets(10, 10, 10, 10); 
+	        menuPanel.setBackground(bg);
+	  
+	        Font buttonFont = new Font("Arial", Font.PLAIN, 20);
+	     // Labels and text fields for name input
+	        JLabel nameLabel1 = new JLabel("Enter White Player:");
+	        nameLabel1.setForeground(textcl);
+	        nameLabel1.setFont(buttonFont);
+	        menuPanel.add(nameLabel1, gbc);
+	        
+	        gbc.gridy++;
+	        JTextField nameField1 = new JTextField(15);
+	        nameField1.setFont(buttonFont);
+	        menuPanel.add(nameField1, gbc);
+	        
+	        gbc.gridy++;
+	        JLabel nameLabel2 = new JLabel("Enter Black Player:");
+	        nameLabel2.setForeground(textcl);
+	        nameLabel2.setFont(buttonFont);
+	        menuPanel.add(nameLabel2, gbc);
+	        
+	        gbc.gridy++;
+	        JTextField nameField2 = new JTextField(15);
+	        nameField2.setFont(buttonFont);
+	        menuPanel.add(nameField2, gbc);
+	        
+	        gbc.gridy++;
+	     // Save button
+	        gbc.gridy++;
+	        JButton saveButton = new JButton("Save Names");
+	        saveButton.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                white_name = nameField1.getText();
+	                black_name = nameField2.getText();
+	                
+	                System.out.println("Name 1: " + white_name + ", Name 2: " + black_name);
+	                if((!white_name.isBlank()) & (!black_name.isBlank())) {
+	                	if(!Control.game.fileProcessor.nameExists("scores.txt", white_name)) {
+	                		fileProcessor.writefile("scores.txt", white_name + ", 0"); 
+	                	}
+	                	else if(!Control.game.fileProcessor.nameExists("scores.txt", black_name)) {
+	                		fileProcessor.writefile("scores.txt", black_name + ", 0");
+	                	}
+	                	
+	                    JOptionPane.showMessageDialog(gui, "Names saved successfully.");
+	                	Control.game.clearscreen();
+	  	                Control.game.start2player();
+	                }
+	                else {
+	                	JOptionPane.showMessageDialog(gui, "Names cannot be blank.", "Input Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	              
+	            }
+	        });
+	        saveButton.setForeground(textcl);
+	        saveButton.setFont(new Font("Arial", Font.PLAIN, 20));
+	        saveButton.setBackground(Tile.dark_tile);
+	        saveButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	        saveButton.setUI(new MetalButtonUI() {
+	            @Override
+	            protected void paintButtonPressed(Graphics g, AbstractButton b) {}
+	        });
+	        menuPanel.add(saveButton, gbc);
+	        gbc.gridy++;
+			  
+		        JButton menu = new JButton("Back");
+		        Menuevt menuevt = new Menuevt(menu,"main_menu");
+		        menu.addActionListener(menuevt);
+		        //two_player.setMaximumSize(new Dimension(100, 50));
+		        menu.setForeground(textcl);
+		        menu.setFont(buttonFont);
+		        menu.setBackground(Tile.dark_tile);
+		        menu.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		      //REMOVES HIGHLIGHT https://forums.oracle.com/ords/apexds/post/how-to-disable-the-highlight
+		        //-i-get-on-a-jbutton-when-it-s-h-8112
+		        menu.setUI (new MetalButtonUI () {
+		            @Override
+					protected void paintButtonPressed (Graphics g, AbstractButton b) { }
+		        });
+				menuPanel.add(menu, gbc);
+				contentPane.add(menuPanel, BorderLayout.CENTER);
+		        
+		        gui.setVisible(true);
+	        
 	
+		
+	}
 	public void start2player(){
 	
 		current_black = 0;
@@ -273,7 +395,7 @@ class maingame {
 	    contentPane.add(topgreen, BorderLayout.NORTH);
 	    topgreen.setBorder(BorderFactory.createEmptyBorder(size, size, size, 385));
 	    topgreen.setBackground(bg);
-	    whos_turn_top = new JLabel("It is Black's turn", JLabel.CENTER);
+	    whos_turn_top = new JLabel("It is "+black_name+"'s turn", JLabel.CENTER);
 	   
 	    
 	    JButton menu = new JButton();
@@ -308,7 +430,7 @@ class maingame {
         labelPanel = new JPanel(new BorderLayout());
         contentPane.add(labelPanel, BorderLayout.SOUTH);
         
-        whos_turn_bottom = new JLabel("It is White's turn", JLabel.CENTER);
+        whos_turn_bottom = new JLabel("It is "+white_name+"'s turn", JLabel.CENTER);
         
 
         labelPanel.setBackground(bg);
