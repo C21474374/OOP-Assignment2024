@@ -3,6 +3,7 @@
 - Name: Demetry
 - Description: Chess Game made from Java swing with GUI elements,File processing and OOP concepts such as methods,
 encapsulated attributes, constructors, inheritance, interfaces, polymorphism for Semester 2 Tu857 Oop assignment
+- Video Link: https://youtu.be/nz1aUUkx_BM
 
 # Classes
 - Control: Other classes use this class to control the game
@@ -34,4 +35,4 @@ encapsulated attributes, constructors, inheritance, interfaces, polymorphism for
 - Score system
   
 # What would I add?
-If I had more time I would add castling, checking and checkmate, a timer and ai opponent
+If I had more time I would add castling,saving game, checking and checkmate, a timer and ai opponent
