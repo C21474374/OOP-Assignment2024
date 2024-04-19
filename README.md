@@ -1,7 +1,7 @@
 # OOP-Assignment2024
-Student Number: C21474374
-Name: Demetry
-Description:Chess Game made from Java swing with GUI elements,File processing and OOP concepts such as methods,
+- Student Number: C21474374
+- Name: Demetry
+- Description:Chess Game made from Java swing with GUI elements,File processing and OOP concepts such as methods,
 encapsulated attributes, constructors, inheritance, interfaces, polymorphism for Semester 2 Tu857 Oop assignment
 
 # Classes
