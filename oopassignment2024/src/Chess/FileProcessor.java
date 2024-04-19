@@ -1,3 +1,9 @@
+/***************************************************
+* File:Controls the functions of file processing
+* Author:C21474374
+* OOP Assignment 2024
+*********************************/
+
 package Chess;
 
 import java.io.File;
@@ -118,6 +124,6 @@ class file {
 
 public class FileProcessor {
     public static void main(String[] args) {
-        // Main method stub
+        
     }
 }

@@ -1,3 +1,9 @@
+/***************************************************
+* Tile:Controls the function of the tiles on the chess board
+* Author:C21474374
+* OOP Assignment 2024
+*********************************/
+
 package Chess;
 
 import java.awt.Color;
@@ -11,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.plaf.metal.MetalButtonUI;
 
 class Tile {
+	
+	// Initialize Variables
 	private Color tile_color;
 	public static JButton last_button;
 	public static boolean last_color;
@@ -39,9 +47,8 @@ class Tile {
 
 
 
-	// CONSTRUCTOR
+	// -- CONSTRUCTOR --
 	public Tile(boolean is_wheat,JPanel pane,int top,int left) {
-		//tile_position = position;
 		tile_button = new JButton();
 		this.top = top;
 		this.left = left;
@@ -70,8 +77,7 @@ class Tile {
 
 	}
 
-	// GETTERS AND SETTERS
-
+	// -- GETTERS AND SETTERS --
 	public void addPiece(Piece piece) {
 		current_piece = piece;
 		has_piece = true;
@@ -119,6 +125,10 @@ class Tile {
 		this.tile_selected = tile_selected;
 	}
 
+	// -- METHODS --
+	// - Select Tile -
+	// Selects a tile by changing it to the highlighted color and then checks what
+	// piece is on the tile and selects that piece using the pieces class
 	public void selectTile() {
 		Buttontile.clearTiles();
 		is_selected = false;
@@ -127,7 +137,7 @@ class Tile {
 		selected_piece = current_piece;
 
 		if (has_piece) {
-			System.out.println(current_piece.isIs_white());
+//			System.out.println(current_piece.isIs_white());
 			Buttontile.selected_tile = this;
 			is_selected = true;
 			is_moveable = false;
@@ -152,7 +162,6 @@ class Tile {
 			is_yellow = true;
 			if (current_piece.getPiece_type() == "Pawn") {
 				current_piece.selectPawn(left, top);
-				//current_piece.movePiece(maingame.position[left-1][top]);
 				}
 			else if (current_piece.getPiece_type() == "Knight") {
 				System.out.println("Knight selected");
@@ -181,7 +190,8 @@ class Tile {
 	}
 
 
-
+	// - De-select Tile -
+	// Simply de-selects a tile back to its original state
 	public void deselectTile() {
 		if (is_light_tile) {
 			tile_button.setBackground(light_tile);
@@ -232,12 +242,11 @@ class Tile {
             
             Buttontile.moveable_tiles = newMoveableTiles;
         }
-		System.out.println("Position "+left+","+top+" is moveable");
+		//System.out.println("Position "+left+","+top+" is moveable");
 		if ((!has_piece) & (maingame.highlight_mode)) {
 			tile_button.setBackground(highlighted_tile);
 		}
 		else if (has_piece) {
-			System.out.println("red");
 			this.killTile();
 		}
 	}
@@ -247,29 +256,20 @@ class Tile {
 		 Buttontile.moveable_tiles = null;
 		 Buttontile.killable_tiles = null;
 	    }
+	 
+	// - Place Piece -
+	// Places an image icon (piece) on the tile
 	public void placePiece(ImageIcon piece,String piece_Type) {
 		this.piece_type = piece_Type;
 		Image image = piece.getImage();
         Image scaledImage = image.getScaledInstance(40,40, Image.SCALE_SMOOTH);
         tile_button.setIcon(new ImageIcon(scaledImage));
-        System.out.println(piece_type+" has been placed in:("+left+","+top+")");
+//        System.out.println(piece_type+" has been placed in:("+left+","+top+")");
         has_piece = true;
 	}
 
 
-}
-//2d array grid example
-//      0 1 2 3 4 5 6 7
-//     0
-//     1
-//     2
-//     3
-//     4
-//     5
-//     6
-//     7
-
-
+}// end Tile class
 
 public class tiles {
 

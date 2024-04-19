@@ -1,7 +1,7 @@
 /***************************************************
-* Button:Controls the function of when the button is clicked
+* Menuevt: Action listener for menu buttons
 * Author:C21474374
-* Date:29/2/2024
+* OOP Assignment 2024
 *********************************/
 
 package Chess;
@@ -15,10 +15,11 @@ import javax.swing.JButton;
 
 
 class Menuevt implements ActionListener{
+	// Initialize Variables
 	private JButton current_btn;
 	private String menu_type;
 	
-	// Button event method
+	// Button event constructor
 	public Menuevt(JButton button,String menu_type) {
 		this.current_btn = button;
 		this.menu_type = menu_type;

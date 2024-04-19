@@ -1,3 +1,9 @@
+/***************************************************
+* Piece:Controls the function of chess pieces
+* Author:C21474374
+* OOP Assignment 2024
+*********************************/
+
 package Chess;
 import javax.swing.*;
 import javax.swing.JButton;
@@ -6,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
+// Set Interface
 interface PieceControl
 {
 	void movePiece(Tile current_tile, Tile new_tile);
@@ -14,7 +20,8 @@ interface PieceControl
 }
 class Piece {
 
-
+	// -- Initializing Variables --
+	// Initializing Image locations and image icons
 	static ImageIcon queen_black = new ImageIcon("Chesspieces/queen_black.png");
 	static ImageIcon king_black = new ImageIcon("Chesspieces/king_black.png");
 	static ImageIcon bishop_black = new ImageIcon("Chesspieces/bishop_black.png");
@@ -27,15 +34,17 @@ class Piece {
 	static ImageIcon knight_white = new ImageIcon("Chesspieces/knight_white.png");
 	static ImageIcon rook_white = new ImageIcon("Chesspieces/rook_white.png");
 	static ImageIcon pawn_white = new ImageIcon("Chesspieces/pawn_white.png");
-
+	
+	// Other variables
 	static boolean has_moved = false;
 	private boolean pawn_moved = false;
 	private boolean is_white;
 	int available_move[];
 	boolean alive = true;
-	Tile current_tile;
+	Tile current_tile;// current tile piece is on
 	private String piece_type;
-
+	
+	// -- Constructor -- 
 	public Piece(boolean is_white,Tile current_tile,String piece_type){
 		this.is_white = is_white;
 		this.piece_type = piece_type;
@@ -92,7 +101,8 @@ class Piece {
 			}
 		}
 	}
-
+	
+	// -- Getters and Setters --
 	public boolean isPawn_moved() {
 		return pawn_moved;
 	}
@@ -118,26 +128,21 @@ class Piece {
 	public void setIs_white(boolean is_white) {
 		this.is_white = is_white;
 	}
-
+	
+	// -- Methods --
+	// - Move Piece -
+	// this method moves a piece to a new tile and checks if the piece on the other tile can be taken
 	public void movePiece(Tile new_tile) {
-		
+		String message;
 		JButton current_button = current_tile.getButton();
 		JButton new_button = new_tile.getButton();
 			current_tile.deselectTile();
-			String message;
-			
-				
-			
 			current_tile.has_piece = false;
 			if(new_tile.has_piece) {
 				Control.game.takePiece(new_tile.piece_type, new_tile.current_piece.is_white);
 			}
-			
 			new_tile.deselectTile();
-			
-		
-		
-			
+
 			if(piece_type == "Knight") {
 				if (is_white) {
 					new_tile.placePiece(knight_white,piece_type);
@@ -181,7 +186,6 @@ class Piece {
 			else if (piece_type == "Pawn") {
 				if (is_white) {
 					pawn_moved = true;
-					System.out.println("pawn moved");
 					new_tile.placePiece(pawn_white,piece_type);
 				}
 				else if(!is_white) {
@@ -189,12 +193,12 @@ class Piece {
 					new_tile.placePiece(pawn_black,piece_type);
 				}
 			}
-			if (maingame.is_whites_turn) {
-				System.out.println("It is now Blacks turn");
-			}
-			else if (!maingame.is_whites_turn) {
-				System.out.println("It is now Whites turn");
-			}
+//			if (maingame.is_whites_turn) {
+//				System.out.println("It is now Blacks turn");
+//			}
+//			else if (!maingame.is_whites_turn) {
+//				System.out.println("It is now Whites turn");
+//			}
 			maingame.is_whites_turn = !maingame.is_whites_turn;
 			maingame.DisplayTurn();
 			try {
@@ -243,9 +247,14 @@ class Piece {
 			current_button.setIcon(null);
 			current_tile.piece_type = null;
 			new_tile.piece_type = this.piece_type;
-			
 
-	}
+	}// end move piece
+	
+	// With the following select methods the highlight tile is a tile in which the user can select to move
+	// to and a kill tile is a tile in which as user can take another piece
+	
+	// - Select Pawn -
+	// Selects pawn and highlights tiles it can move to.
 
 	public void selectPawn(int left,int top) {
 		if ((is_white) && (maingame.is_whites_turn)) {
@@ -316,12 +325,12 @@ class Piece {
 
 		}
 
-	}
-
+	}// end select pawn
+	
+	// - Select Knight -
 	public void selectKnight(int left,int top) {
 		int knight_left[] = {1,-1,-2,-2,-1,1,2,2};
 		int knight_top[] = {-2,-2,-1,1,2,2,1,-1};
-		
 		if ((is_white) && (maingame.is_whites_turn)) {
 
 				for(int i = 0;i<8;i++) {
@@ -345,7 +354,6 @@ class Piece {
 
 				for(int i = 0;i<8;i++) {
 				try {
-					System.out.println("Hello world");
 					if(!maingame.position[left+knight_left[i]][top+knight_top[i]].has_piece) {
 						maingame.position[left+knight_left[i]][top+knight_top[i]].moveableTile();
 
@@ -363,10 +371,9 @@ class Piece {
 		}
 
 	}//end select knight
-
-	public void selectRook(int left,int top) {
-
 	
+	//  - Select Rook -
+	public void selectRook(int left,int top) {
 		if ((is_white) && (maingame.is_whites_turn)) {
 
 			for(int i = 1;i<8;i++) {
@@ -540,10 +547,8 @@ class Piece {
 		}
 	}//end select Rook
 
-public void selectBishop(int left,int top) {
-
-		System.out.println("Hellooooo");
-		System.out.println("is_white="+is_white);
+	// - Select Bishop -
+	public void selectBishop(int left,int top) {
 		if ((is_white) && (maingame.is_whites_turn)) {
 
 				for(int i = 1;i<8;i++) {
@@ -717,16 +722,19 @@ public void selectBishop(int left,int top) {
 			}
 		}
 	}//end select Bishop
-
+	
+	// - Select Queen -
+	// The queens movement logic is done by combining the rooks and bishops movement
+	// logic as the queen has the same moves as both of them combined
 	public void selectQueen(int left,int top) {
 		selectBishop(left,top);
 		selectRook(left,top);
 	}
 
+	// - Select King -
 	public void selectKing(int left,int top) {
 		int king_left[] = {1,0,-1,-1,-1,0,1,1};
 		int king_top[] = {-1,-1,-1,0,1,1,1,0};
-		System.out.println("Hellooooo");
 		if ((is_white) && (maingame.is_whites_turn)) {
 
 				for(int i = 0;i<8;i++) {
@@ -750,7 +758,6 @@ public void selectBishop(int left,int top) {
 
 				for(int i = 0;i<8;i++) {
 				try {
-					System.out.println("Hello world");
 					if(!maingame.position[left+king_left[i]][top+king_top[i]].has_piece) {
 						maingame.position[left+king_left[i]][top+king_top[i]].moveableTile();
 
@@ -764,21 +771,19 @@ public void selectBishop(int left,int top) {
 				}
 
 				}
-
 		}
 
-	}
+	}// End select king
 
-
-	public static void checkPath() {
-		for (Tile moveable_tile : Buttontile.moveable_tiles) {
-			if(moveable_tile.has_piece) {
-				moveable_tile.deselectTile();
-			}
-		System.out.println("path checked");
-	}
-
-	}
+//	public static void checkPath() {
+//		for (Tile moveable_tile : Buttontile.moveable_tiles) {
+//			if(moveable_tile.has_piece) {
+//				moveable_tile.deselectTile();
+//			}
+//		System.out.println("path checked");
+//	}
+//
+//	}
 }
 
 

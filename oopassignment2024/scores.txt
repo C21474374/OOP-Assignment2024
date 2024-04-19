@@ -1,5 +1,12 @@
 Name, Wins
-Demetry, 2
+Demetry, 3
 byron, 0
 Byron, 0
 byronn, 0
+Reece, 0
+hlss, 0
+demetry, 1
+daragh, 0
+d, 0
+dme, 0
+e, 0

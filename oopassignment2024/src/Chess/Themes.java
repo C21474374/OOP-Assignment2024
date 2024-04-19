@@ -1,18 +1,29 @@
+/***************************************************
+* Theme:Stores the functions for the types of themes and setting them
+* This class also uses OOP concepts such as interfaces,classes,subclasses,methods,attributes and is designed in an OOP away
+* Author:C21474374
+* OOP Assignment 2024
+*********************************/
+
+
+
 package Chess;
 
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
+// Set Interface
 interface ThemeSetter
 {
 	void setTheme();
 	void resetTheme();
 }
+
 class Theme  {
 	
-//	static ImageIcon[] theme_images = new ImageIcon[6];
-	
+
+	// Initialize Variables
 	static ImageIcon default_board = new ImageIcon("Themes/default_board.png");
 	static ImageIcon pink_board = new ImageIcon("Themes/pink_board.png");
 	static ImageIcon blue_board = new ImageIcon("Themes/blue_board.png");
@@ -55,6 +66,8 @@ class Theme  {
 	
 }
 
+// -- SUBCLASS'S OF THEME --
+// - Pink Theme -
 class pinkTheme extends Theme implements ThemeSetter {
 	
 	public pinkTheme() {
@@ -65,7 +78,7 @@ class pinkTheme extends Theme implements ThemeSetter {
 			  new Color(0,0,0),//text_color (Black)
 			  new Color(255, 194, 227),//highlight_color (Lavender pink)
 			  new Color(255, 146, 194));//kill color (Amaranth pink)
-		System.out.println("Job done");
+		//System.out.println("Job done");
 	}
 	public void setTheme() {
 		Tile.dark_tile = super.current_dark_color;
@@ -89,6 +102,8 @@ class pinkTheme extends Theme implements ThemeSetter {
 	}
 	
 }
+
+// - Grey Theme -
 class greyTheme extends Theme implements ThemeSetter {
 	
 	public greyTheme() {
@@ -99,7 +114,7 @@ class greyTheme extends Theme implements ThemeSetter {
 			  new Color(0,0,0),//text_color (Black)
 			  new Color(204, 204, 204),//highlight_color (Silver 2)
 			  new Color(89, 89, 89));//kill color (Dave's grey)
-		System.out.println("Job done");
+		//System.out.println("Job done");
 	}
 	public void setTheme() {
 		Tile.dark_tile = super.current_dark_color;
@@ -124,6 +139,7 @@ class greyTheme extends Theme implements ThemeSetter {
 	
 }
 
+// - Blue Theme -
 class blueTheme extends Theme implements ThemeSetter {
 	
 	public blueTheme() {
@@ -134,7 +150,7 @@ class blueTheme extends Theme implements ThemeSetter {
 			  new Color(255,255,255),//text_color (White)
 			  new Color(155, 167, 191),//highlight_color (null)
 			  new Color(66, 77, 97));//kill color (null)
-		System.out.println("Job done");
+		//System.out.println("Job done");
 	}
 	public void setTheme() {
 		Tile.dark_tile = super.current_dark_color;
@@ -159,7 +175,7 @@ class blueTheme extends Theme implements ThemeSetter {
 	
 }
 
-
+// - Purple Theme -
 class purpleTheme extends Theme implements ThemeSetter {
 	
 	public purpleTheme() {
@@ -170,7 +186,7 @@ class purpleTheme extends Theme implements ThemeSetter {
 			  new Color(0,0,0),//text_color (White)
 			  new Color(205, 193, 255),//highlight_color (Periwinkle)
 			  new Color(137, 135, 253));//kill color (Tropical indigo)
-		System.out.println("Job done");
+		//System.out.println("Job done");
 	}
 	public void setTheme() {
 		Tile.dark_tile = super.current_dark_color;
@@ -195,6 +211,7 @@ class purpleTheme extends Theme implements ThemeSetter {
 	
 }
 
+// - Magma Theme -
 class magmaTheme extends Theme implements ThemeSetter {
 	
 	public magmaTheme() {
@@ -205,7 +222,7 @@ class magmaTheme extends Theme implements ThemeSetter {
 			  new Color(255,255,255),//text_color (White)
 			  new Color(213, 137, 54),//highlight_color (Bronze)
 			  new Color(164, 66, 0));//kill color (Brown)
-		System.out.println("Job done");
+		//System.out.println("Job done");
 	}
 	public void setTheme() {
 		Tile.dark_tile = super.current_dark_color;

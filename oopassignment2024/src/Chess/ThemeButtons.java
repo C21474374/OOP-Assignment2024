@@ -1,7 +1,7 @@
 /***************************************************
-* Button:Controls the function of when the button is clicked
+* Themeevt:Action listener for the themes class
 * Author:C21474374
-* Date:29/2/2024
+* OOP Assignment 2024
 *********************************/
 
 package Chess;
@@ -17,10 +17,11 @@ import javax.swing.JLabel;
 
 
 class Themeevt implements ActionListener{
+	// Initialize Variables
 	private JLabel board_image;
 	private String button_type;
 	
-	// Button event method
+	// Button event constructor
 	public Themeevt(String button_type) {
 		this.button_type = button_type;
 		

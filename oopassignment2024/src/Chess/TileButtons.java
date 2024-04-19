@@ -1,7 +1,7 @@
 /***************************************************
-* Button:Controls the function of when the button is clicked
+* Buttontile:Action Listener for each tile in Tile class
 * Author:C21474374
-* Date:29/2/2024
+* OOP Assignment 2024
 *********************************/
 
 package Chess;
@@ -15,9 +15,9 @@ import javax.swing.JButton;
 
 
 class Buttontile implements ActionListener{
+	// Initialize Variables
 	private Tile current_tile;
 	private Piece selected_piece;
-	//static Tile selected_tile;
 	public static JButton last_button = null;
 	Color light_tile = new Color(245,222,179);
 	Color highlighted_tile = new Color(255,255,0);
@@ -29,18 +29,16 @@ class Buttontile implements ActionListener{
 	public static Tile killable_tiles[];
 	public static Tile selected_tile;
 	static boolean is_yellow = false;
-	// Button event method
+	
+	// Button event constructor
 	public Buttontile(Tile tile,boolean is_wheat) {
 		current_tile = tile;
-
-
 		this.is_light_tile = is_wheat;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Tile is selected:"+current_tile.isIs_selected());
-		System.out.println("Tile is moveable:"+current_tile.is_moveable);
-			//selected_tile = current_tile;
+//		System.out.println("Tile is selected:"+current_tile.isIs_selected());
+//		System.out.println("Tile is moveable:"+current_tile.is_moveable);
 			if ((!current_tile.isIs_selected()) && (current_tile.has_piece)) {
 				if((current_tile.current_piece.isIs_white()) && (maingame.is_whites_turn)) {
 					current_tile.selectTile();
@@ -59,15 +57,15 @@ class Buttontile implements ActionListener{
 			}
 
 			if (current_tile.is_moveable) {
-				System.out.println("Piece moved");
+				//System.out.println("Piece moved");
 				Tile.selected_piece.movePiece(current_tile);
 				clearTiles();
 				current_tile.deselectTile();
 				Tile.has_moved = true;
 			}
 			if (current_tile.is_killable) {
-				System.out.println("Piece taken1");
-				System.out.println("tile type:"+current_tile.piece_type);
+//				System.out.println("Piece taken1");
+//				System.out.println("tile type:"+current_tile.piece_type);
 				
 				Tile.selected_piece.movePiece(current_tile);
 				clearTiles();
